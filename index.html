@@ -3,305 +3,602 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Studio premium de estetica automotiva com polimento tecnico, vitrificacao, PPF, higienizacao interna e manutencao para veiculos especiais.">
-    <title>Prime Detail Studio | Estetica Automotiva Premium</title>
+    <meta name="description" content="Studio premium de estética automotiva. Lavagem técnica, polimento, vitrificação cerâmica, PPF e higienização interna com agenda individual.">
+    <title>Prime Detail Studio | Estética Automotiva Premium</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="Prime Detail Studio">
-        <span class="brand-mark">PD</span>
-        <span>
-          <strong>Prime Detail</strong>
-          <small>Studio</small>
-        </span>
-      </a>
 
-      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" data-nav-toggle>
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top pd-navbar" id="mainNav">
+      <div class="container-xl">
+        <a class="navbar-brand pd-brand" href="#top">
+          <span class="brand-mark">PD</span>
+          <span class="brand-text">
+            <strong>Prime Detail</strong>
+            <small>Studio</small>
+          </span>
+        </a>
 
-      <nav class="main-nav" data-nav>
-        <a href="#servicos">Servicos</a>
-        <a href="#pacotes">Pacotes</a>
-        <a href="#processo">Processo</a>
-        <a href="#resultados">Resultados</a>
-        <a href="#contato">Contato</a>
-      </nav>
+        <button class="navbar-toggler pd-toggler" type="button"
+          data-bs-toggle="collapse" data-bs-target="#navContent"
+          aria-controls="navContent" aria-expanded="false" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
 
-      <a class="header-cta" href="https://wa.me/5500000000000?text=Quero%20um%20orcamento%20para%20estetica%20automotiva" target="_blank" rel="noreferrer">
-        Orcar agora
-      </a>
-    </header>
+        <div class="collapse navbar-collapse" id="navContent">
+          <ul class="navbar-nav mx-auto gap-lg-1">
+            <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
+            <li class="nav-item"><a class="nav-link" href="#pacotes">Pacotes</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-highlight" href="#agendar">Agendar</a></li>
+            <li class="nav-item"><a class="nav-link" href="#processo">Processo</a></li>
+            <li class="nav-item"><a class="nav-link" href="#resultados">Resultados</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+          </ul>
+          <a class="pd-btn pd-btn-primary ms-lg-3 mt-3 mt-lg-0"
+            href="https://wa.me/5500000000000?text=Quero%20um%20orçamento%20para%20estética%20automotiva"
+            target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-whatsapp me-2"></i>Orçar agora
+          </a>
+        </div>
+      </div>
+    </nav>
 
     <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <img class="hero-image" src="assets/images/detailing-hero.png" alt="Coupe preto em estudio premium de estetica automotiva com luzes de inspecao">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <p class="eyebrow">Estetica automotiva premium</p>
-          <h1 id="hero-title">Acabamento de alto nivel para carros que merecem mais do que uma lavagem.</h1>
-          <p class="hero-copy">Polimento tecnico, vitrificacao ceramica, PPF e interiores tratados com metodo, luz de inspecao e agenda individual.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contato">Solicitar avaliacao</a>
-            <a class="btn btn-ghost" href="#servicos">Ver servicos</a>
+
+      <!-- HERO -->
+      <section class="pd-hero" aria-labelledby="hero-title">
+        <img class="pd-hero-img" src="assets/images/detailing-hero.png"
+          alt="Coupé preto em estúdio premium de estética automotiva com luzes de inspeção">
+        <div class="pd-hero-overlay"></div>
+        <div class="pd-hero-content">
+          <p class="eyebrow">Estética automotiva premium</p>
+          <h1 id="hero-title">Acabamento de alto nível para carros que merecem mais do que uma lavagem.</h1>
+          <p class="pd-hero-copy">Polimento técnico, vitrificação cerâmica, PPF e interiores tratados com método, luz de inspeção e agenda individual.</p>
+          <div class="d-flex flex-wrap gap-3 mt-4 mb-4">
+            <a class="pd-btn pd-btn-primary" href="#agendar">
+              <i class="bi bi-calendar-check me-2"></i>Agendar agora
+            </a>
+            <a class="pd-btn pd-btn-ghost" href="#servicos">Ver serviços</a>
           </div>
-          <div class="hero-metrics" aria-label="Indicadores do studio">
-            <span><strong>9H</strong> protecao ceramica</span>
-            <span><strong>95%</strong> remocao de marcas</span>
-            <span><strong>5 anos</strong> de durabilidade</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="trust-band" aria-label="Diferenciais">
-        <div class="trust-item">
-          <strong>Atendimento por agenda</strong>
-          <span>Tempo real para inspecionar, corrigir e proteger sem pressa.</span>
-        </div>
-        <div class="trust-item">
-          <strong>Produtos profissionais</strong>
-          <span>Linhas de coating, descontaminacao e acabamento de padrao internacional.</span>
-        </div>
-        <div class="trust-item">
-          <strong>Entrega documentada</strong>
-          <span>Check-list, fotos de processo e orientacao de manutencao.</span>
-        </div>
-      </section>
-
-      <section class="section services" id="servicos">
-        <div class="section-heading">
-          <p class="eyebrow">Servicos de protecao</p>
-          <h2>Do detalhe rapido ao projeto completo de preservacao.</h2>
-          <p>Cada servico comeca com avaliacao da pintura, contaminacao, uso do veiculo e nivel de protecao desejado.</p>
-        </div>
-
-        <div class="service-grid">
-          <article class="service-card accent-red">
-            <span class="card-number">01</span>
-            <h3>Vitrificacao ceramica</h3>
-            <p>Camada hidrofobica com alto brilho, protecao UV e manutencao mais simples no uso diario.</p>
-            <ul>
-              <li>Opcoes de 1, 3 e 5 anos</li>
-              <li>Preparacao com clay e descontaminacao</li>
-              <li>Aplicacao em pintura, rodas e vidros</li>
-            </ul>
-          </article>
-
-          <article class="service-card accent-cyan">
-            <span class="card-number">02</span>
-            <h3>Polimento tecnico</h3>
-            <p>Correcao de swirls, marcas de lavagem, oxidacao leve e hologramas sob iluminacao controlada.</p>
-            <ul>
-              <li>Refino em uma ou multiplas etapas</li>
-              <li>Medicao e cuidado com verniz</li>
-              <li>Acabamento espelhado sem mascarar defeitos</li>
-            </ul>
-          </article>
-
-          <article class="service-card accent-gold">
-            <span class="card-number">03</span>
-            <h3>PPF e protecao frontal</h3>
-            <p>Filme transparente em areas de impacto para preservar para-choque, capo, retrovisores e caixas de roda.</p>
-            <ul>
-              <li>Instalacao limpa e alinhada</li>
-              <li>Filme auto-regenerativo</li>
-              <li>Ideal para carros novos e estrada</li>
-            </ul>
-          </article>
-
-          <article class="service-card accent-ink">
-            <span class="card-number">04</span>
-            <h3>Interior premium</h3>
-            <p>Higienizacao profunda, couro hidratado, plasticos protegidos e cabine com acabamento seco ao toque.</p>
-            <ul>
-              <li>Limpeza de bancos, carpetes e forros</li>
-              <li>Protecao de couro e tecido</li>
-              <li>Remocao tecnica de odores</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="section packages" id="pacotes">
-        <div class="section-heading compact">
-          <p class="eyebrow">Pacotes</p>
-          <h2>Escolha pelo objetivo do carro.</h2>
-        </div>
-
-        <div class="package-grid">
-          <article class="package-card">
-            <div>
-              <p class="package-kicker">Manutencao</p>
-              <h3>Reset</h3>
-              <p class="price">a partir de R$ 290</p>
-              <p>Lavagem tecnica, rodas, vidros, aspiracao e protecao spray para manter o carro correto entre detalhes.</p>
-            </div>
-            <a href="#contato">Agendar</a>
-          </article>
-
-          <article class="package-card featured">
-            <div class="badge">Mais procurado</div>
-            <div>
-              <p class="package-kicker">Brilho e protecao</p>
-              <h3>Signature Coating</h3>
-              <p class="price">a partir de R$ 1.890</p>
-              <p>Descontaminacao, polimento de brilho, vitrificacao ceramica e orientacao de cura e manutencao.</p>
-            </div>
-            <a href="#contato">Quero esse</a>
-          </article>
-
-          <article class="package-card">
-            <div>
-              <p class="package-kicker">Preservacao total</p>
-              <h3>New Car Protection</h3>
-              <p class="price">sob consulta</p>
-              <p>PPF nas areas de impacto, coating completo, vidro repelente e protecao interna para carro zero ou seminovo.</p>
-            </div>
-            <a href="#contato">Consultar</a>
-          </article>
-        </div>
-      </section>
-
-      <section class="process" id="processo" aria-labelledby="process-title">
-        <div class="process-intro">
-          <p class="eyebrow">Metodo</p>
-          <h2 id="process-title">Cada etapa existe para proteger o verniz, nao para esconder problema.</h2>
-        </div>
-        <ol class="process-list">
-          <li>
-            <span>01</span>
-            <h3>Diagnostico</h3>
-            <p>Analise de pintura, fotos, contaminacao, historico de lavagem e expectativa de resultado.</p>
-          </li>
-          <li>
-            <span>02</span>
-            <h3>Preparacao</h3>
-            <p>Pre-lavagem, descontaminacao quimica, clay e mascaramento de areas sensiveis.</p>
-          </li>
-          <li>
-            <span>03</span>
-            <h3>Correcao</h3>
-            <p>Polimento calibrado por painel, com controle de corte, temperatura e acabamento.</p>
-          </li>
-          <li>
-            <span>04</span>
-            <h3>Protecao</h3>
-            <p>Coating, PPF ou selante escolhido conforme uso, prazo, exposicao e valor do veiculo.</p>
-          </li>
-        </ol>
-      </section>
-
-      <section class="section results" id="resultados">
-        <div class="section-heading">
-          <p class="eyebrow">Resultados</p>
-          <h2>Brilho mensuravel, superficie protegida e manutencao mais facil.</h2>
-          <p>O controle visual combina luz de inspecao, toque da superficie e comportamento da agua depois da protecao.</p>
-        </div>
-
-        <div class="result-layout">
-          <div class="before-after" data-slider-wrap>
-            <div class="before-side">
-              <span>Antes</span>
-              <p>Swirls, marcas de pano e contaminacao presa no verniz.</p>
-            </div>
-            <div class="after-side" data-after-side>
-              <span>Depois</span>
-              <p>Reflexo limpo, toque liso e protecao hidrofobica.</p>
-            </div>
-            <input class="comparison-slider" type="range" min="18" max="82" value="52" aria-label="Comparar antes e depois" data-slider>
-          </div>
-
-          <div class="testimonial-card">
-            <p>"O carro saiu com profundidade de cor que eu nao via desde a entrega. A orientacao de manutencao fez diferenca."</p>
-            <strong>Cliente de vitrificacao</strong>
-            <span>BMW Serie 3, preto metalico</span>
+          <div class="pd-metrics">
+            <div class="pd-metric"><strong>9H</strong><span>proteção cerâmica</span></div>
+            <div class="pd-metric"><strong>95%</strong><span>remoção de marcas</span></div>
+            <div class="pd-metric"><strong>5 anos</strong><span>de durabilidade</span></div>
           </div>
         </div>
       </section>
 
-      <section class="section faq" aria-labelledby="faq-title">
-        <div class="section-heading compact">
-          <p class="eyebrow">Perguntas comuns</p>
-          <h2 id="faq-title">Antes de deixar o carro.</h2>
-        </div>
-        <div class="faq-grid">
-          <details>
-            <summary>Vitrificacao substitui PPF?</summary>
-            <p>Nao. Coating melhora brilho, hidrofobia e resistencia quimica. PPF protege melhor contra impacto de pedra e abrasao.</p>
-          </details>
-          <details>
-            <summary>Todo carro precisa de polimento antes do coating?</summary>
-            <p>Quase sempre precisa ao menos de refino, porque a protecao sela a superficie. A avaliacao define a intensidade correta.</p>
-          </details>
-          <details>
-            <summary>Quanto tempo o carro fica no studio?</summary>
-            <p>Servicos simples podem levar um dia. Projetos com correcao, coating e cura normalmente ficam de dois a quatro dias.</p>
-          </details>
-          <details>
-            <summary>Como manter depois?</summary>
-            <p>Use lavagem tecnica, shampoo pH neutro, toalhas adequadas e manutencoes periodicas. Entregamos uma rotina simples por escrito.</p>
-          </details>
-        </div>
-      </section>
-
-      <section class="contact" id="contato">
-        <div class="contact-copy">
-          <p class="eyebrow">Orcamento</p>
-          <h2>Conte o que voce quer preservar, corrigir ou transformar.</h2>
-          <p>Envie modelo, ano, cor, fotos da pintura e objetivo. A resposta ja volta com caminho recomendado e faixa de investimento.</p>
-          <div class="contact-points">
-            <span>Atendimento de segunda a sabado</span>
-            <span>Agenda com horario marcado</span>
-            <span>Projetos para carros novos, premium e de uso diario</span>
+      <!-- TRUST BAND -->
+      <div class="pd-trust-band">
+        <div class="container-xl px-0">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <div class="pd-trust-item">
+                <i class="bi bi-calendar-check pd-trust-icon"></i>
+                <div>
+                  <strong>Atendimento por agenda</strong>
+                  <p>Tempo real para inspecionar, corrigir e proteger sem pressa.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="pd-trust-item">
+                <i class="bi bi-award pd-trust-icon"></i>
+                <div>
+                  <strong>Produtos profissionais</strong>
+                  <p>Linhas de coating, descontaminação e acabamento de padrão internacional.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="pd-trust-item">
+                <i class="bi bi-camera pd-trust-icon"></i>
+                <div>
+                  <strong>Entrega documentada</strong>
+                  <p>Check-list, fotos de processo e orientação de manutenção.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <form class="contact-form" action="mailto:contato@primedetail.com.br" method="post" enctype="text/plain">
-          <label>
-            Nome
-            <input type="text" name="nome" autocomplete="name" required>
-          </label>
-          <label>
-            WhatsApp
-            <input type="tel" name="whatsapp" autocomplete="tel" required>
-          </label>
-          <label>
-            Veiculo
-            <input type="text" name="veiculo" placeholder="Ex: Porsche 911 2021">
-          </label>
-          <label>
-            Objetivo
-            <select name="objetivo">
-              <option>Vitrificacao ceramica</option>
-              <option>Polimento tecnico</option>
-              <option>PPF / protecao frontal</option>
-              <option>Higienizacao interna</option>
-              <option>Projeto completo</option>
-            </select>
-          </label>
-          <label class="full">
-            Mensagem
-            <textarea name="mensagem" rows="4" placeholder="Conte como o carro e usado e o resultado desejado."></textarea>
-          </label>
-          <button class="btn btn-primary full" type="submit">Enviar avaliacao</button>
-        </form>
+      <!-- SERVICES -->
+      <section id="servicos" class="pd-section pd-section-dark">
+        <div class="container-xl">
+          <div class="row align-items-end mb-5">
+            <div class="col-lg-5">
+              <p class="eyebrow">Serviços de proteção</p>
+              <h2 class="pd-heading">Do detalhe rápido ao projeto completo de preservação.</h2>
+            </div>
+            <div class="col-lg-6 offset-lg-1 mt-3 mt-lg-0">
+              <p class="text-muted mb-0">Cada serviço começa com avaliação da pintura, contaminação, uso do veículo e nível de proteção desejado.</p>
+            </div>
+          </div>
+          <div class="row g-1">
+            <div class="col-md-6 col-xl-3">
+              <article class="pd-service-card accent-red h-100">
+                <span class="pd-card-num">01</span>
+                <h3>Vitrificação cerâmica</h3>
+                <p>Camada hidrofóbica com alto brilho, proteção UV e manutenção mais simples no uso diário.</p>
+                <ul class="pd-card-list">
+                  <li>Opções de 1, 3 e 5 anos</li>
+                  <li>Preparação com clay e descontaminação</li>
+                  <li>Aplicação em pintura, rodas e vidros</li>
+                </ul>
+              </article>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <article class="pd-service-card accent-cyan h-100">
+                <span class="pd-card-num">02</span>
+                <h3>Polimento técnico</h3>
+                <p>Correção de swirls, marcas de lavagem, oxidação leve e hologramas sob iluminação controlada.</p>
+                <ul class="pd-card-list">
+                  <li>Refino em uma ou múltiplas etapas</li>
+                  <li>Medição e cuidado com verniz</li>
+                  <li>Acabamento espelhado sem mascarar defeitos</li>
+                </ul>
+              </article>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <article class="pd-service-card accent-gold h-100">
+                <span class="pd-card-num">03</span>
+                <h3>PPF e proteção frontal</h3>
+                <p>Filme transparente em áreas de impacto para preservar para-choque, capô, retrovisores e caixas de roda.</p>
+                <ul class="pd-card-list">
+                  <li>Instalação limpa e alinhada</li>
+                  <li>Filme auto-regenerativo</li>
+                  <li>Ideal para carros novos e estrada</li>
+                </ul>
+              </article>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <article class="pd-service-card accent-green h-100">
+                <span class="pd-card-num">04</span>
+                <h3>Interior premium</h3>
+                <p>Higienização profunda, couro hidratado, plásticos protegidos e cabine com acabamento seco ao toque.</p>
+                <ul class="pd-card-list">
+                  <li>Limpeza de bancos, carpetes e forros</li>
+                  <li>Proteção de couro e tecido</li>
+                  <li>Remoção técnica de odores</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
       </section>
+
+      <!-- PACKAGES -->
+      <section id="pacotes" class="pd-section pd-section-light">
+        <div class="container-xl">
+          <div class="text-center mb-5">
+            <p class="eyebrow eyebrow-dark">Pacotes</p>
+            <h2 class="pd-heading pd-heading-dark">Escolha pelo objetivo do carro.</h2>
+          </div>
+          <div class="row g-4 justify-content-center align-items-center">
+            <div class="col-md-6 col-lg-4">
+              <article class="pd-package-card h-100">
+                <p class="pd-pkg-kicker">Manutenção</p>
+                <h3 class="pd-pkg-title">Reset</h3>
+                <p class="pd-pkg-price">a partir de R$ 290</p>
+                <p class="pd-pkg-desc">Lavagem técnica, rodas, vidros, aspiração e proteção spray para manter o carro correto entre detalhes.</p>
+                <a href="#agendar" class="pd-pkg-btn">Agendar</a>
+              </article>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <article class="pd-package-card pd-package-featured h-100">
+                <div class="pd-badge">Mais procurado</div>
+                <p class="pd-pkg-kicker">Brilho e proteção</p>
+                <h3 class="pd-pkg-title">Signature Coating</h3>
+                <p class="pd-pkg-price">a partir de R$ 1.890</p>
+                <p class="pd-pkg-desc">Descontaminação, polimento de brilho, vitrificação cerâmica e orientação de cura e manutenção.</p>
+                <a href="#agendar" class="pd-pkg-btn">Quero esse</a>
+              </article>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <article class="pd-package-card h-100">
+                <p class="pd-pkg-kicker">Preservação total</p>
+                <h3 class="pd-pkg-title">New Car Protection</h3>
+                <p class="pd-pkg-price">sob consulta</p>
+                <p class="pd-pkg-desc">PPF nas áreas de impacto, coating completo, vidro repelente e proteção interna para carro zero ou seminovo.</p>
+                <a href="#contato" class="pd-pkg-btn">Consultar</a>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCHEDULING -->
+      <section id="agendar" class="pd-section pd-section-dark">
+        <div class="container-xl">
+          <div class="row justify-content-center mb-5">
+            <div class="col-lg-7 text-center">
+              <p class="eyebrow">Agendamento online</p>
+              <h2 class="pd-heading">Agende sua lavagem em minutos</h2>
+              <p class="text-muted mt-3">Escolha o serviço, o dia e horário disponível. Confirmamos pelo WhatsApp em instantes.</p>
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-xl-10">
+              <form id="schedulingForm" class="pd-scheduling-form">
+
+                <!-- Step 1 -->
+                <div class="pd-step mb-5">
+                  <div class="pd-step-header">
+                    <span class="pd-step-num">1</span>
+                    <h5 class="pd-step-title">Tipo de lavagem</h5>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-6 col-lg-3">
+                      <label class="pd-wash-card h-100">
+                        <input type="radio" name="tipoLavagem" value="Lavagem Simples (R$ 60+)" required>
+                        <div class="pd-wash-inner">
+                          <i class="bi bi-droplet-fill"></i>
+                          <strong>Lavagem Simples</strong>
+                          <span>Somente exterior</span>
+                          <em>A partir de R$ 60</em>
+                        </div>
+                      </label>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                      <label class="pd-wash-card h-100">
+                        <input type="radio" name="tipoLavagem" value="Lavagem Completa (R$ 120+)">
+                        <div class="pd-wash-inner">
+                          <i class="bi bi-droplet-half"></i>
+                          <strong>Lavagem Completa</strong>
+                          <span>Exterior + interior</span>
+                          <em>A partir de R$ 120</em>
+                        </div>
+                      </label>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                      <label class="pd-wash-card h-100">
+                        <input type="radio" name="tipoLavagem" value="Lavagem Premium (R$ 190+)">
+                        <div class="pd-wash-inner">
+                          <i class="bi bi-stars"></i>
+                          <strong>Lavagem Premium</strong>
+                          <span>Completa + cera protetora</span>
+                          <em>A partir de R$ 190</em>
+                        </div>
+                      </label>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                      <label class="pd-wash-card h-100">
+                        <input type="radio" name="tipoLavagem" value="Detalhamento Completo (R$ 350+)">
+                        <div class="pd-wash-inner">
+                          <i class="bi bi-gem"></i>
+                          <strong>Detalhamento</strong>
+                          <span>Polimento + proteção</span>
+                          <em>A partir de R$ 350</em>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Step 2 + 3 -->
+                <div class="pd-step mb-5">
+                  <div class="row g-4">
+                    <div class="col-md-5">
+                      <div class="pd-step-header">
+                        <span class="pd-step-num">2</span>
+                        <h5 class="pd-step-title">Dia</h5>
+                      </div>
+                      <input type="date" name="dia" id="scheduleDate" class="pd-input" required>
+                      <small class="text-muted d-block mt-2">
+                        <i class="bi bi-info-circle me-1"></i>Atendemos de segunda a sábado
+                      </small>
+                    </div>
+                    <div class="col-md-7">
+                      <div class="pd-step-header">
+                        <span class="pd-step-num">3</span>
+                        <h5 class="pd-step-title">Horário</h5>
+                      </div>
+                      <div class="pd-time-grid">
+                        <label class="pd-time-slot"><input type="radio" name="horario" value="08:00" required><span>08:00</span></label>
+                        <label class="pd-time-slot"><input type="radio" name="horario" value="09:00"><span>09:00</span></label>
+                        <label class="pd-time-slot"><input type="radio" name="horario" value="10:00"><span>10:00</span></label>
+                        <label class="pd-time-slot"><input type="radio" name="horario" value="11:00"><span>11:00</span></label>
+                        <label class="pd-time-slot"><input type="radio" name="horario" value="13:00"><span>13:00</span></label>
+                        <label class="pd-time-slot"><input type="radio" name="horario" value="14:00"><span>14:00</span></label>
+                        <label class="pd-time-slot"><input type="radio" name="horario" value="15:00"><span>15:00</span></label>
+                        <label class="pd-time-slot"><input type="radio" name="horario" value="16:00"><span>16:00</span></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="pd-step mb-5">
+                  <div class="pd-step-header">
+                    <span class="pd-step-num">4</span>
+                    <h5 class="pd-step-title">Suas informações</h5>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <input type="text" name="nome" placeholder="Seu nome completo" class="pd-input" required>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="tel" name="whatsapp" placeholder="WhatsApp com DDD" class="pd-input" required>
+                    </div>
+                    <div class="col-12">
+                      <input type="text" name="veiculo" placeholder="Veículo — Ex: Honda Civic 2023 Prata" class="pd-input">
+                    </div>
+                    <div class="col-12">
+                      <textarea name="observacoes" rows="3" class="pd-input"
+                        placeholder="Informações adicionais — condição do carro, preferências ou cuidados especiais..."></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" class="pd-btn pd-btn-primary pd-btn-lg">
+                    <i class="bi bi-whatsapp me-2"></i>Confirmar agendamento via WhatsApp
+                  </button>
+                  <p class="text-muted mt-3 mb-0 pd-form-hint">
+                    Você será redirecionado para o WhatsApp com os dados do agendamento.
+                  </p>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROCESS -->
+      <section id="processo" class="pd-process">
+        <div class="container-xl">
+          <div class="row g-5 align-items-start">
+            <div class="col-lg-4">
+              <p class="eyebrow">Método</p>
+              <h2 class="pd-heading">Cada etapa existe para proteger o verniz, não para esconder problema.</h2>
+            </div>
+            <div class="col-lg-8">
+              <ol class="pd-process-list">
+                <li>
+                  <span class="pd-proc-num">01</span>
+                  <div>
+                    <h3>Diagnóstico</h3>
+                    <p>Análise de pintura, fotos, contaminação, histórico de lavagem e expectativa de resultado.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="pd-proc-num">02</span>
+                  <div>
+                    <h3>Preparação</h3>
+                    <p>Pré-lavagem, descontaminação química, clay e mascaramento de áreas sensíveis.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="pd-proc-num">03</span>
+                  <div>
+                    <h3>Correção</h3>
+                    <p>Polimento calibrado por painel, com controle de corte, temperatura e acabamento.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="pd-proc-num">04</span>
+                  <div>
+                    <h3>Proteção</h3>
+                    <p>Coating, PPF ou selante escolhido conforme uso, prazo, exposição e valor do veículo.</p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESULTS -->
+      <section id="resultados" class="pd-section pd-section-dark">
+        <div class="container-xl">
+          <div class="row align-items-end mb-5">
+            <div class="col-lg-5">
+              <p class="eyebrow">Resultados</p>
+              <h2 class="pd-heading">Brilho mensurável, superfície protegida e manutenção mais fácil.</h2>
+            </div>
+            <div class="col-lg-6 offset-lg-1 mt-3 mt-lg-0">
+              <p class="text-muted mb-0">O controle visual combina luz de inspeção, toque da superfície e comportamento da água depois da proteção.</p>
+            </div>
+          </div>
+          <div class="row g-4 align-items-stretch">
+            <div class="col-lg-8">
+              <div class="pd-before-after" data-slider-wrap>
+                <div class="pd-before-side">
+                  <span>Antes</span>
+                  <p>Swirls, marcas de pano e contaminação presa no verniz.</p>
+                </div>
+                <div class="pd-after-side" data-after-side>
+                  <span>Depois</span>
+                  <p>Reflexo limpo, toque liso e proteção hidrofóbica.</p>
+                </div>
+                <input class="pd-comparison-slider" type="range" min="18" max="82" value="52"
+                  aria-label="Comparar antes e depois" data-slider>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="pd-testimonial h-100">
+                <div class="mb-3">
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                  <i class="bi bi-star-fill text-warning"></i>
+                </div>
+                <p>"O carro saiu com profundidade de cor que eu não via desde a entrega. A orientação de manutenção fez diferença."</p>
+                <div class="mt-auto">
+                  <strong>Cliente de vitrificação</strong><br>
+                  <span class="text-muted">BMW Série 3, preto metálico</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="pd-section pd-section-light" aria-labelledby="faq-title">
+        <div class="container-xl">
+          <div class="text-center mb-5">
+            <p class="eyebrow eyebrow-dark">Perguntas comuns</p>
+            <h2 class="pd-heading pd-heading-dark" id="faq-title">Antes de deixar o carro.</h2>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="accordion pd-accordion" id="faqAccordion">
+                <div class="accordion-item pd-accordion-item">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button pd-accordion-btn collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="false">
+                      Vitrificação substitui PPF?
+                    </button>
+                  </h3>
+                  <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body pd-accordion-body">
+                      Não. Coating melhora brilho, hidrofobia e resistência química. PPF protege melhor contra impacto de pedra e abrasão mecânica.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item pd-accordion-item">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button pd-accordion-btn collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false">
+                      Todo carro precisa de polimento antes do coating?
+                    </button>
+                  </h3>
+                  <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body pd-accordion-body">
+                      Quase sempre precisa ao menos de refino, porque a proteção sela a superfície. A avaliação define a intensidade correta para cada caso.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item pd-accordion-item">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button pd-accordion-btn collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false">
+                      Quanto tempo o carro fica no studio?
+                    </button>
+                  </h3>
+                  <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body pd-accordion-body">
+                      Serviços simples podem levar um dia. Projetos com correção, coating e cura normalmente ficam de dois a quatro dias.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item pd-accordion-item">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button pd-accordion-btn collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false">
+                      Como manter depois?
+                    </button>
+                  </h3>
+                  <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body pd-accordion-body">
+                      Use lavagem técnica, shampoo pH neutro, toalhas adequadas e manutenções periódicas. Entregamos uma rotina simples por escrito.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contato" class="pd-contact">
+        <div class="container-xl">
+          <div class="row g-5 align-items-start">
+            <div class="col-lg-5">
+              <p class="eyebrow">Orçamento</p>
+              <h2 class="pd-heading">Conte o que você quer preservar, corrigir ou transformar.</h2>
+              <p class="text-muted mt-3">Envie modelo, ano, cor, fotos da pintura e objetivo. A resposta já volta com caminho recomendado e faixa de investimento.</p>
+              <div class="pd-contact-points mt-4">
+                <div class="pd-contact-point">
+                  <i class="bi bi-clock-fill"></i>
+                  <span>Atendimento de segunda a sábado</span>
+                </div>
+                <div class="pd-contact-point">
+                  <i class="bi bi-calendar2-check-fill"></i>
+                  <span>Agenda com horário marcado</span>
+                </div>
+                <div class="pd-contact-point">
+                  <i class="bi bi-car-front-fill"></i>
+                  <span>Projetos para carros novos, premium e de uso diário</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <form class="pd-contact-form" action="mailto:contato@primedetail.com.br" method="post" enctype="text/plain">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="pd-label">Nome
+                      <input type="text" name="nome" class="pd-input" autocomplete="name" required>
+                    </label>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="pd-label">WhatsApp
+                      <input type="tel" name="whatsapp" class="pd-input" autocomplete="tel" required>
+                    </label>
+                  </div>
+                  <div class="col-12">
+                    <label class="pd-label">Veículo
+                      <input type="text" name="veiculo" class="pd-input" placeholder="Ex: Porsche 911 2021">
+                    </label>
+                  </div>
+                  <div class="col-12">
+                    <label class="pd-label">Objetivo
+                      <select name="objetivo" class="pd-input" title="Objetivo do serviço">
+                        <option>Vitrificação cerâmica</option>
+                        <option>Polimento técnico</option>
+                        <option>PPF / proteção frontal</option>
+                        <option>Higienização interna</option>
+                        <option>Projeto completo</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div class="col-12">
+                    <label class="pd-label">Mensagem
+                      <textarea name="mensagem" rows="4" class="pd-input"
+                        placeholder="Conte como o carro é usado e o resultado desejado."></textarea>
+                    </label>
+                  </div>
+                  <div class="col-12">
+                    <button class="pd-btn pd-btn-primary w-100" type="submit">Enviar avaliação</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </main>
 
-    <footer class="site-footer">
-      <div>
-        <strong>Prime Detail Studio</strong>
-        <p>Estetica automotiva premium, protecao de pintura e acabamento tecnico.</p>
+    <footer class="pd-footer">
+      <div class="container-xl">
+        <div class="row align-items-center py-2">
+          <div class="col-md-8 mb-3 mb-md-0">
+            <strong class="d-block mb-1">Prime Detail Studio</strong>
+            <span class="text-muted">Estética automotiva premium, proteção de pintura e acabamento técnico.</span>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <a href="#top" class="text-muted text-decoration-none">
+              Voltar ao topo <i class="bi bi-arrow-up-circle ms-1"></i>
+            </a>
+          </div>
+        </div>
       </div>
-      <a href="#top">Voltar ao topo</a>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
