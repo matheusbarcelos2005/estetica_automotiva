@@ -361,7 +361,7 @@
                 <i class="bi bi-info-circle me-1"></i>Selecione ao menos 1 serviço
               </span>
               <div class="ag-nav-right">
-                <button class="pd-btn pd-btn-primary" onclick="goToStep(2)">
+                <button type="button" class="pd-btn pd-btn-primary" onclick="goToStep(2)">
                   Próximo <i class="bi bi-arrow-right ms-1"></i>
                 </button>
               </div>
@@ -456,11 +456,11 @@
             </div>
 
             <div class="ag-nav">
-              <button class="pd-btn pd-btn-ghost" onclick="goToStep(1)">
+              <button type="button" class="pd-btn pd-btn-ghost" onclick="goToStep(1)">
                 <i class="bi bi-arrow-left me-1"></i> Voltar
               </button>
               <div class="ag-nav-right">
-                <button class="pd-btn pd-btn-primary" onclick="goToStep(3)">
+                <button type="button" class="pd-btn pd-btn-primary" onclick="goToStep(3)">
                   Próximo <i class="bi bi-arrow-right ms-1"></i>
                 </button>
               </div>
@@ -533,11 +533,11 @@
             </div>
 
             <div class="ag-nav">
-              <button class="pd-btn pd-btn-ghost" onclick="goToStep(2)">
+              <button type="button" class="pd-btn pd-btn-ghost" onclick="goToStep(2)">
                 <i class="bi bi-arrow-left me-1"></i> Voltar
               </button>
               <div class="ag-nav-right">
-                <button class="pd-btn pd-btn-primary" onclick="confirmar()">
+                <button type="button" class="pd-btn pd-btn-primary" onclick="confirmar()">
                   <i class="bi bi-calendar-check me-2"></i>Confirmar agendamento
                 </button>
               </div>
@@ -613,12 +613,6 @@
       let currentStep    = 1;
       let selectedTime   = '';
       let confirmedData  = null;
-
-      /* ---- Navbar scroll ---- */
-      const mainNav = document.getElementById('mainNav');
-      function updateNavbar() { mainNav.classList.toggle('is-scrolled', window.scrollY > 24); }
-      window.addEventListener('scroll', updateNavbar, { passive: true });
-      updateNavbar();
 
       /* ---- Date picker min + Sunday block ---- */
       const dateInput = document.getElementById('ag-date');
