@@ -406,8 +406,43 @@ input[type="date"].pd-input::-webkit-calendar-picker-indicator { filter: invert(
 .pd-contact-point i { color: var(--pd-cyan); flex-shrink: 0; }
 
 /* ---------- Footer ---------- */
-.pd-footer { padding: 32px 0; background: #07080a; color: var(--pd-muted); }
-.pd-footer a:hover { color: var(--pd-cyan) !important; }
+.pd-footer { background: #07080a; color: var(--pd-muted); }
+
+.pd-footer-main { padding: 72px 0 56px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+.pd-footer-tagline { font-size: 0.88rem; line-height: 1.65; color: var(--pd-muted); max-width: 340px; margin-bottom: 24px; }
+
+.pd-footer-social { display: flex; gap: 10px; }
+.pd-footer-social a {
+  display: grid; place-items: center;
+  width: 38px; height: 38px;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 4px;
+  color: var(--pd-muted); font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.pd-footer-social a:hover { color: #fff; border-color: var(--pd-cyan); background: rgba(30,167,182,0.12); }
+
+.pd-footer-heading {
+  font-size: 0.74rem; font-weight: 800;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); margin-bottom: 18px;
+}
+
+.pd-footer-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.pd-footer-list a { color: var(--pd-muted); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+.pd-footer-list a:hover { color: var(--pd-cyan); }
+
+.pd-footer-contact { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.pd-footer-contact li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; }
+.pd-footer-contact i { color: var(--pd-cyan); margin-top: 2px; flex-shrink: 0; }
+.pd-footer-contact a { color: var(--pd-muted); text-decoration: none; transition: color 0.2s; }
+.pd-footer-contact a:hover { color: var(--pd-cyan); }
+
+.pd-footer-bottom { padding: 20px 0; font-size: 0.82rem; color: rgba(255,255,255,0.35); }
+.pd-footer-top-link { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+.pd-footer-top-link:hover { color: var(--pd-cyan); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 767px) {
