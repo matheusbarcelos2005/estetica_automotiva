@@ -178,6 +178,11 @@
       @media (max-width: 399px) {
         .ag-time-grid { grid-template-columns: repeat(2, 1fr); }
       }
+
+      /* Fix Bootstrap text-muted (#6c757d) on dark backgrounds */
+      .ag-body   .text-muted,
+      .ag-header .text-muted,
+      .pd-footer .text-muted { color: var(--pd-muted) !important; }
     </style>
   </head>
   <body>
@@ -589,16 +594,63 @@
 
     <!-- FOOTER -->
     <footer class="pd-footer">
-      <div class="container-xl">
-        <div class="row align-items-center py-2">
-          <div class="col-md-8 mb-2 mb-md-0">
-            <strong class="d-block mb-1">Prime Detail Studio</strong>
-            <span class="text-muted">Estética automotiva premium, proteção de pintura e acabamento técnico.</span>
+      <div class="pd-footer-main">
+        <div class="container-xl">
+          <div class="row g-5">
+            <div class="col-lg-4">
+              <a class="pd-brand text-decoration-none mb-4 d-inline-flex" href="index.html">
+                <span class="brand-mark">PD</span>
+                <span class="brand-text">
+                  <strong>Prime Detail</strong>
+                  <small>Studio</small>
+                </span>
+              </a>
+              <p class="pd-footer-tagline">Polimento técnico, vitrificação cerâmica, PPF e higienização interna com método e agenda individual.</p>
+              <div class="pd-footer-social">
+                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="https://wa.me/5500000000000" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="bi bi-whatsapp"></i></a>
+              </div>
+            </div>
+            <div class="col-6 col-lg-2">
+              <p class="pd-footer-heading">Serviços</p>
+              <ul class="pd-footer-list">
+                <li><a href="index.html#servicos">Vitrificação cerâmica</a></li>
+                <li><a href="index.html#servicos">Polimento técnico</a></li>
+                <li><a href="index.html#servicos">PPF e proteção frontal</a></li>
+                <li><a href="index.html#servicos">Interior premium</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-lg-2">
+              <p class="pd-footer-heading">Navegação</p>
+              <ul class="pd-footer-list">
+                <li><a href="index.html#pacotes">Pacotes</a></li>
+                <li><a href="index.html#processo">Processo</a></li>
+                <li><a href="index.html#contato">Orçamento</a></li>
+                <li><a href="agendamento.html">Agendamento</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-4">
+              <p class="pd-footer-heading">Contato</p>
+              <ul class="pd-footer-contact">
+                <li><i class="bi bi-geo-alt-fill"></i><span>Rua Exemplo, 100 — Bairro, Cidade - UF</span></li>
+                <li><i class="bi bi-clock-fill"></i><span>Segunda a sábado, 08h às 18h</span></li>
+                <li><i class="bi bi-whatsapp"></i><a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer">(00) 00000-0000</a></li>
+                <li><i class="bi bi-envelope-fill"></i><a href="mailto:contato@primedetail.com.br">contato@primedetail.com.br</a></li>
+              </ul>
+            </div>
           </div>
-          <div class="col-md-4 text-md-end">
-            <a href="#top" class="text-muted text-decoration-none">
-              Voltar ao topo <i class="bi bi-arrow-up-circle ms-1"></i>
-            </a>
+        </div>
+      </div>
+      <div class="pd-footer-bottom">
+        <div class="container-xl">
+          <div class="row align-items-center">
+            <div class="col-md-8 mb-2 mb-md-0">
+              <span>&copy; 2026 Prime Detail Studio. Todos os direitos reservados.</span>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <a href="#top" class="pd-footer-top-link">Voltar ao topo <i class="bi bi-arrow-up-circle ms-1"></i></a>
+            </div>
           </div>
         </div>
       </div>

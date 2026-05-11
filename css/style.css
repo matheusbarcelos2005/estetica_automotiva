@@ -443,6 +443,7 @@ input[type="date"].pd-input::-webkit-calendar-picker-indicator { filter: invert(
 .pd-footer-bottom { padding: 20px 0; font-size: 0.82rem; color: rgba(255,255,255,0.35); }
 .pd-footer-top-link { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
 .pd-footer-top-link:hover { color: var(--pd-cyan); }
+.pd-footer .text-muted { color: rgba(255,255,255,0.38) !important; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 767px) {
