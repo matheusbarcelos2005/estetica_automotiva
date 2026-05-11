@@ -8,7 +8,9 @@
       "Read(//a/_SITES/SITES PRONTOS/mecanica/**)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(gh api *)",
+      "Bash(curl -s \"https://api.github.com/repos/matheusbarcelos2005/estetica_automotiva/pages\")"
     ]
   }
 }
