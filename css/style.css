@@ -216,7 +216,12 @@ button, input, textarea, select { font-family: inherit; }
 .pd-section-light .text-muted { color: #666 !important; }
 .pd-section-cta   { background: linear-gradient(135deg, #0f1014 0%, #1a0d0d 100%); }
 
-.pd-cta-desc { font-size: 1rem; max-width: 520px; }
+.pd-section-dark .text-muted,
+.pd-process      .text-muted,
+.pd-section-cta  .text-muted,
+.pd-contact      .text-muted { color: var(--pd-muted) !important; }
+
+.pd-cta-desc { font-size: 1rem; max-width: 520px; color: rgba(255,255,255,0.65); }
 .pd-cta-icon { color: var(--pd-cyan); font-size: 1.2rem; flex-shrink: 0; }
 
 /* ---------- Service Cards ---------- */
@@ -252,11 +257,11 @@ button, input, textarea, select { font-family: inherit; }
 .pd-package-card {
   display: flex; flex-direction: column;
   padding: 30px;
-  border: 1px solid rgba(11,12,15,0.14);
-  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: var(--pd-panel);
 }
 .pd-package-featured {
-  background: var(--pd-ink); color: #fff;
+  border-color: var(--pd-red);
   box-shadow: var(--pd-shadow);
   transform: translateY(-16px);
 }
@@ -271,18 +276,16 @@ button, input, textarea, select { font-family: inherit; }
 .pd-pkg-kicker { color: var(--pd-red); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
 .pd-pkg-title  { font-size: 1.7rem; font-weight: 800; margin-bottom: 6px; }
 .pd-pkg-price  { color: var(--pd-cyan); font-weight: 800; margin-bottom: 12px; }
-.pd-pkg-desc   { flex: 1; color: #5a5d61; font-size: 0.92rem; margin-bottom: 22px; }
-.pd-package-featured .pd-pkg-desc { color: var(--pd-muted); }
+.pd-pkg-desc   { flex: 1; color: var(--pd-muted); font-size: 0.92rem; margin-bottom: 22px; }
 .pd-pkg-btn {
   display: inline-flex; align-items: center;
   min-height: 44px; padding: 0 18px;
-  border: 1px solid currentColor;
+  border: 1px solid rgba(255,255,255,0.28);
   font-weight: 800; text-decoration: none;
-  color: inherit; width: max-content; font-size: 0.88rem;
-  transition: background 0.2s, color 0.2s;
+  color: #fff; width: max-content; font-size: 0.88rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
-.pd-pkg-btn:hover { background: var(--pd-ink); color: #fff; }
-.pd-package-featured .pd-pkg-btn:hover { background: var(--pd-red); border-color: var(--pd-red); }
+.pd-pkg-btn:hover { background: var(--pd-red); border-color: var(--pd-red); color: #fff; }
 
 /* ---------- Shared form inputs (contact + scheduling pages) ---------- */
 .pd-input {
@@ -338,6 +341,25 @@ input[type="date"].pd-input::-webkit-calendar-picker-indicator { filter: invert(
 .pd-before-side p,
 .pd-after-side  p { position: relative; z-index: 1; max-width: 300px; margin: 0; font-size: 1.25rem; font-weight: 800; line-height: 1.1; }
 .pd-comparison-slider { position: absolute; left: 5%; bottom: 18px; z-index: 3; width: 90%; accent-color: var(--pd-cyan); }
+
+.pd-ba-badge {
+  position: absolute; top: 16px; z-index: 2;
+  padding: 4px 12px;
+  font-size: 0.7rem; font-weight: 800;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  border-radius: 2px; pointer-events: none;
+}
+.pd-ba-antes {
+  left: 16px;
+  background: rgba(0,0,0,0.52);
+  color: rgba(255,255,255,0.80);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.pd-ba-depois {
+  right: 16px;
+  background: rgba(30,167,182,0.80);
+  color: #fff;
+}
 
 /* ---------- Testimonial ---------- */
 .pd-testimonial {
