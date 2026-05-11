@@ -214,6 +214,10 @@ button, input, textarea, select { font-family: inherit; }
 .pd-section-dark  { background: var(--pd-ink); }
 .pd-section-light { background: var(--pd-paper); color: var(--pd-ink); }
 .pd-section-light .text-muted { color: #666 !important; }
+.pd-section-cta   { background: linear-gradient(135deg, #0f1014 0%, #1a0d0d 100%); }
+
+.pd-cta-desc { font-size: 1rem; max-width: 520px; }
+.pd-cta-icon { color: var(--pd-cyan); font-size: 1.2rem; flex-shrink: 0; }
 
 /* ---------- Service Cards ---------- */
 .pd-service-card {
@@ -280,49 +284,7 @@ button, input, textarea, select { font-family: inherit; }
 .pd-pkg-btn:hover { background: var(--pd-ink); color: #fff; }
 .pd-package-featured .pd-pkg-btn:hover { background: var(--pd-red); border-color: var(--pd-red); }
 
-/* ---------- Scheduling ---------- */
-.pd-scheduling-form {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--pd-line);
-  padding: 40px 44px;
-  border-radius: 6px;
-}
-.pd-step { border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 36px; }
-.pd-step:last-of-type { border-bottom: 0; padding-bottom: 0; }
-
-.pd-step-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-.pd-step-num {
-  width: 32px; height: 32px; flex-shrink: 0;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--pd-red); color: #fff;
-  font-weight: 800; font-size: 0.85rem; border-radius: 50%;
-}
-.pd-step-title { font-size: 1.05rem; font-weight: 700; margin: 0; }
-
-/* Wash Type Cards */
-.pd-wash-card { display: block; cursor: pointer; position: relative; height: 100%; }
-.pd-wash-card input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
-.pd-wash-inner {
-  display: flex; flex-direction: column;
-  align-items: center; text-align: center; gap: 4px;
-  padding: 22px 14px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.04);
-  border-radius: 6px; height: 100%;
-  transition: all 0.2s ease;
-}
-.pd-wash-inner i       { font-size: 1.9rem; color: var(--pd-cyan); margin-bottom: 6px; }
-.pd-wash-inner strong  { font-size: 0.88rem; font-weight: 700; color: #fff; }
-.pd-wash-inner span    { font-size: 0.77rem; color: var(--pd-muted); }
-.pd-wash-inner em      { font-style: normal; font-size: 0.84rem; font-weight: 800; color: var(--pd-cyan); margin-top: 6px; }
-.pd-wash-card:hover .pd-wash-inner { border-color: rgba(213,43,43,0.5); background: rgba(213,43,43,0.07); }
-.pd-wash-card input:checked ~ .pd-wash-inner {
-  border-color: var(--pd-red);
-  background: rgba(213,43,43,0.14);
-  box-shadow: 0 0 0 2px rgba(213,43,43,0.22);
-}
-
-/* Inputs */
+/* ---------- Shared form inputs (contact + scheduling pages) ---------- */
 .pd-input {
   display: block; width: 100%;
   min-height: 48px; padding: 12px 14px;
@@ -338,26 +300,6 @@ button, input, textarea, select { font-family: inherit; }
 textarea.pd-input           { resize: vertical; min-height: 90px; }
 select.pd-input option      { background: var(--pd-ink); }
 input[type="date"].pd-input::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.55; cursor: pointer; }
-
-/* Time Slots */
-.pd-time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.pd-time-slot { cursor: pointer; position: relative; }
-.pd-time-slot input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
-.pd-time-slot span {
-  display: flex; align-items: center; justify-content: center;
-  height: 44px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.04);
-  border-radius: 4px;
-  font-size: 0.88rem; font-weight: 600;
-  -webkit-user-select: none;
-  user-select: none;
-  transition: all 0.2s;
-}
-.pd-time-slot:hover span              { border-color: rgba(30,167,182,0.5); background: rgba(30,167,182,0.08); }
-.pd-time-slot input:checked ~ span    { border-color: var(--pd-cyan); background: rgba(30,167,182,0.18); color: var(--pd-cyan); font-weight: 800; }
-
-.pd-form-hint { font-size: 0.85rem; }
 
 /* ---------- Process ---------- */
 .pd-process { padding: 96px 0; background: #111c1d; }

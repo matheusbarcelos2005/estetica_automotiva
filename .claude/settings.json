@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"a:\\\\_SITES\\\\SITES PRONTOS\\\\mecanica\" -Recurse -File)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "Bash(find \"a:/_SITES/SITES PRONTOS/mecanica\" -type f | sort)",
+      "Read(//a/_SITES/SITES PRONTOS/mecanica/**)"
+    ]
+  }
+}

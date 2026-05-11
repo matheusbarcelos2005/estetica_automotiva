@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agendar Serviço | Prime Detail Studio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+      /* ---- Page header ---- */
+      .ag-header {
+        padding: 120px 0 56px;
+        background: linear-gradient(160deg, #0b0c0f 55%, #1a0d0d 100%);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+      .ag-header h1 {
+        font-size: clamp(1.9rem, 4vw, 3rem);
+        font-weight: 800; line-height: 1.1; margin: 0;
+      }
+      .ag-header p { color: var(--pd-muted); font-size: 1rem; margin-top: 10px 0 0; }
+
+      /* ---- Step indicator ---- */
+      .ag-steps {
+        display: flex; align-items: center;
+        padding: 28px 0; overflow-x: auto;
+      }
+      .ag-step {
+        display: flex; flex-direction: column; align-items: center;
+        gap: 6px; flex-shrink: 0; min-width: 80px;
+        cursor: default;
+      }
+      .ag-step-icon {
+        width: 44px; height: 44px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        border: 2px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        font-size: 1.1rem; color: var(--pd-muted);
+        transition: all 0.3s;
+      }
+      .ag-step span {
+        font-size: 0.74rem; font-weight: 700;
+        color: var(--pd-muted); text-align: center;
+        white-space: nowrap; transition: color 0.3s;
+      }
+      .ag-step.active .ag-step-icon  { background: var(--pd-red); border-color: var(--pd-red); color: #fff; }
+      .ag-step.active span           { color: #fff; }
+      .ag-step.done   .ag-step-icon  { background: rgba(30,167,182,0.2); border-color: var(--pd-cyan); color: var(--pd-cyan); }
+      .ag-step.done   span           { color: var(--pd-cyan); }
+
+      .ag-step-line {
+        flex: 1; height: 2px; min-width: 30px;
+        background: rgba(255,255,255,0.12);
+        margin-bottom: 22px;
+      }
+
+      /* ---- Form wrap ---- */
+      .ag-body { background: var(--pd-ink); padding-bottom: 80px; }
+      .ag-card {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px; padding: 36px;
+      }
+      .ag-step-content { display: none; }
+      .ag-step-content.active { display: block; }
+
+      .ag-card-title {
+        font-size: 1.3rem; font-weight: 800; margin-bottom: 6px;
+      }
+      .ag-card-sub {
+        color: var(--pd-muted); font-size: 0.9rem; margin-bottom: 28px;
+      }
+
+      /* ---- Service cards ---- */
+      .ag-service-label { display: block; cursor: pointer; height: 100%; }
+      .ag-service-label input[type="checkbox"] { display: none; }
+      .ag-service-inner {
+        display: flex; flex-direction: column; align-items: center;
+        text-align: center; gap: 5px; padding: 20px 12px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.03);
+        border-radius: 6px; height: 100%;
+        transition: all 0.2s;
+      }
+      .ag-service-inner i        { font-size: 1.8rem; color: var(--pd-cyan); margin-bottom: 6px; }
+      .ag-service-inner strong   { font-size: 0.85rem; font-weight: 700; color: #fff; }
+      .ag-service-inner span     { font-size: 0.75rem; color: var(--pd-muted); }
+      .ag-service-inner em       { font-style: normal; font-size: 0.8rem; font-weight: 800; color: var(--pd-cyan); margin-top: 4px; }
+      .ag-service-label:hover .ag-service-inner        { border-color: rgba(213,43,43,0.4); background: rgba(213,43,43,0.06); }
+      .ag-service-label input:checked ~ .ag-service-inner {
+        border-color: var(--pd-red);
+        background: rgba(213,43,43,0.13);
+        box-shadow: 0 0 0 2px rgba(213,43,43,0.2);
+      }
+      .ag-service-check-mark {
+        position: absolute; top: 10px; right: 10px;
+        width: 20px; height: 20px; border-radius: 50%;
+        background: var(--pd-red); color: #fff;
+        display: none; align-items: center; justify-content: center;
+        font-size: 0.65rem;
+      }
+      .ag-service-label { position: relative; }
+      .ag-service-label input:checked ~ .ag-service-inner .ag-service-check-mark { display: flex; }
+
+      /* ---- Time slots ---- */
+      .ag-time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .ag-time-label { cursor: pointer; position: relative; }
+      .ag-time-label input[type="radio"] { display: none; }
+      .ag-time-btn {
+        display: flex; align-items: center; justify-content: center;
+        height: 46px; border-radius: 4px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(255,255,255,0.04);
+        font-size: 0.9rem; font-weight: 600;
+        transition: all 0.2s; -webkit-user-select: none; user-select: none;
+      }
+      .ag-time-label:hover .ag-time-btn                { border-color: rgba(30,167,182,0.5); background: rgba(30,167,182,0.08); }
+      .ag-time-label input:checked ~ .ag-time-btn      { border-color: var(--pd-cyan); background: rgba(30,167,182,0.18); color: var(--pd-cyan); font-weight: 800; }
+      .ag-time-label.unavailable .ag-time-btn          { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
+      .ag-time-label.unavailable:hover .ag-time-btn    { border-color: rgba(255,255,255,0.14); background: rgba(255,255,255,0.04); }
+
+      /* ---- Navigation buttons ---- */
+      .ag-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+      .ag-nav-right { display: flex; gap: 12px; }
+
+      /* ---- Error alert ---- */
+      .ag-error {
+        background: rgba(213,43,43,0.15); border: 1px solid rgba(213,43,43,0.4);
+        color: #ff8a8a; padding: 12px 16px; border-radius: 4px;
+        font-size: 0.9rem; margin-bottom: 20px;
+      }
+
+      /* ---- Confirmation ---- */
+      .ag-confirm-box {
+        background: rgba(30,167,182,0.08); border: 1px solid rgba(30,167,182,0.3);
+        border-radius: 8px; padding: 32px;
+      }
+      .ag-protocol {
+        font-size: 1.5rem; font-weight: 800;
+        color: var(--pd-cyan); letter-spacing: 0.06em;
+        font-family: monospace;
+      }
+      .ag-summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; }
+      .ag-summary-item label { font-size: 0.75rem; font-weight: 800; color: var(--pd-muted); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 3px; }
+      .ag-summary-item span  { font-size: 0.95rem; font-weight: 600; }
+
+      .ag-success-icon {
+        width: 64px; height: 64px; border-radius: 50%;
+        background: rgba(30,167,182,0.15); border: 2px solid var(--pd-cyan);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.8rem; color: var(--pd-cyan); margin: 0 auto 20px;
+      }
+
+      /* ---- Checkbox / toggle ---- */
+      .ag-check-label {
+        display: flex; gap: 10px; align-items: flex-start;
+        cursor: pointer; font-size: 0.88rem; color: var(--pd-muted);
+      }
+      .ag-check-label input { margin-top: 3px; accent-color: var(--pd-red); flex-shrink: 0; }
+      .ag-check-label a { color: var(--pd-cyan); }
+
+      /* ---- Step 3 section divider ---- */
+      .ag-section-label {
+        font-size: 0.72rem; font-weight: 800; text-transform: uppercase;
+        letter-spacing: 0.18em; color: var(--pd-cyan);
+        margin: 24px 0 12px;
+      }
+
+      @media (max-width: 575px) {
+        .ag-card { padding: 22px 16px; }
+        .ag-time-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .ag-time-btn { font-size: 0.78rem; height: 40px; }
+        .ag-summary-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 399px) {
+        .ag-time-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top pd-navbar" id="mainNav">
+      <div class="container-xl">
+        <a class="navbar-brand pd-brand" href="index.html">
+          <span class="brand-mark">PD</span>
+          <span class="brand-text">
+            <strong>Prime Detail</strong>
+            <small>Studio</small>
+          </span>
+        </a>
+        <button class="navbar-toggler pd-toggler" type="button"
+          data-bs-toggle="collapse" data-bs-target="#navContent"
+          aria-controls="navContent" aria-expanded="false" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navContent">
+          <ul class="navbar-nav mx-auto gap-lg-1">
+            <li class="nav-item"><a class="nav-link" href="index.html#servicos">Serviços</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#pacotes">Pacotes</a></li>
+            <li class="nav-item"><a class="nav-link nav-link-highlight" href="agendamento.html">Agendar</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#processo">Processo</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#contato">Contato</a></li>
+          </ul>
+          <a class="pd-btn pd-btn-primary ms-lg-3 mt-3 mt-lg-0"
+            href="https://wa.me/5500000000000?text=Quero%20um%20orçamento"
+            target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-whatsapp me-2"></i>Orçar agora
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="ag-header">
+      <div class="container-xl">
+        <p class="eyebrow">Agendamento online</p>
+        <h1>Agende seu serviço</h1>
+        <p class="mt-2 mb-0">Preencha as informações e confirme em instantes. Resposta via WhatsApp.</p>
+      </div>
+    </div>
+
+    <!-- STEP INDICATOR -->
+    <div class="ag-body">
+      <div class="container-xl">
+        <div class="ag-steps">
+          <div class="ag-step active" id="si-1">
+            <div class="ag-step-icon"><i class="bi bi-grid-1x2"></i></div>
+            <span>Serviço</span>
+          </div>
+          <div class="ag-step-line"></div>
+          <div class="ag-step" id="si-2">
+            <div class="ag-step-icon"><i class="bi bi-calendar3"></i></div>
+            <span>Data e Hora</span>
+          </div>
+          <div class="ag-step-line"></div>
+          <div class="ag-step" id="si-3">
+            <div class="ag-step-icon"><i class="bi bi-person"></i></div>
+            <span>Seus Dados</span>
+          </div>
+          <div class="ag-step-line"></div>
+          <div class="ag-step" id="si-4">
+            <div class="ag-step-icon"><i class="bi bi-check-circle"></i></div>
+            <span>Confirmação</span>
+          </div>
+        </div>
+
+        <!-- Error alert (shared) -->
+        <div id="ag-error" class="ag-error d-none" role="alert"></div>
+
+        <!-- ======================== STEP 1 ======================== -->
+        <div id="step-1" class="ag-step-content active">
+          <div class="ag-card">
+            <p class="ag-card-title">Qual serviço você precisa?</p>
+            <p class="ag-card-sub">Selecione um ou mais serviços. Dúvidas? Entre em contato pelo WhatsApp.</p>
+
+            <div class="row g-3">
+              <div class="col-6 col-md-4 col-lg-3">
+                <label class="ag-service-label h-100">
+                  <input type="checkbox" class="ag-service-check" value="Lavagem Simples">
+                  <div class="ag-service-inner">
+                    <i class="bi bi-droplet-fill"></i>
+                    <strong>Lavagem Simples</strong>
+                    <span>Somente exterior</span>
+                    <em>A partir de R$ 60</em>
+                    <div class="ag-service-check-mark"><i class="bi bi-check"></i></div>
+                  </div>
+                </label>
+              </div>
+              <div class="col-6 col-md-4 col-lg-3">
+                <label class="ag-service-label h-100">
+                  <input type="checkbox" class="ag-service-check" value="Lavagem Completa">
+                  <div class="ag-service-inner">
+                    <i class="bi bi-droplet-half"></i>
+                    <strong>Lavagem Completa</strong>
+                    <span>Exterior + interior</span>
+                    <em>A partir de R$ 120</em>
+                    <div class="ag-service-check-mark"><i class="bi bi-check"></i></div>
+                  </div>
+                </label>
+              </div>
+              <div class="col-6 col-md-4 col-lg-3">
+                <label class="ag-service-label h-100">
+                  <input type="checkbox" class="ag-service-check" value="Lavagem Premium">
+                  <div class="ag-service-inner">
+                    <i class="bi bi-stars"></i>
+                    <strong>Lavagem Premium</strong>
+                    <span>Completa + cera protetora</span>
+                    <em>A partir de R$ 190</em>
+                    <div class="ag-service-check-mark"><i class="bi bi-check"></i></div>
+                  </div>
+                </label>
+              </div>
+              <div class="col-6 col-md-4 col-lg-3">
+                <label class="ag-service-label h-100">
+                  <input type="checkbox" class="ag-service-check" value="Detalhamento Completo">
+                  <div class="ag-service-inner">
+                    <i class="bi bi-gem"></i>
+                    <strong>Detalhamento</strong>
+                    <span>Polimento + proteção</span>
+                    <em>A partir de R$ 350</em>
+                    <div class="ag-service-check-mark"><i class="bi bi-check"></i></div>
+                  </div>
+                </label>
+              </div>
+              <div class="col-6 col-md-4 col-lg-3">
+                <label class="ag-service-label h-100">
+                  <input type="checkbox" class="ag-service-check" value="Vitrificação Cerâmica">
+                  <div class="ag-service-inner">
+                    <i class="bi bi-shield-check"></i>
+                    <strong>Vitrificação Cerâmica</strong>
+                    <span>Coating profissional</span>
+                    <em>A partir de R$ 890</em>
+                    <div class="ag-service-check-mark"><i class="bi bi-check"></i></div>
+                  </div>
+                </label>
+              </div>
+              <div class="col-6 col-md-4 col-lg-3">
+                <label class="ag-service-label h-100">
+                  <input type="checkbox" class="ag-service-check" value="Polimento Técnico">
+                  <div class="ag-service-inner">
+                    <i class="bi bi-tools"></i>
+                    <strong>Polimento Técnico</strong>
+                    <span>Correção de swirls e marcas</span>
+                    <em>A partir de R$ 290</em>
+                    <div class="ag-service-check-mark"><i class="bi bi-check"></i></div>
+                  </div>
+                </label>
+              </div>
+              <div class="col-6 col-md-4 col-lg-3">
+                <label class="ag-service-label h-100">
+                  <input type="checkbox" class="ag-service-check" value="PPF / Proteção Frontal">
+                  <div class="ag-service-inner">
+                    <i class="bi bi-layers"></i>
+                    <strong>PPF / Frontal</strong>
+                    <span>Película protetora</span>
+                    <em>Sob consulta</em>
+                    <div class="ag-service-check-mark"><i class="bi bi-check"></i></div>
+                  </div>
+                </label>
+              </div>
+              <div class="col-6 col-md-4 col-lg-3">
+                <label class="ag-service-label h-100">
+                  <input type="checkbox" class="ag-service-check" value="Higienização Interna">
+                  <div class="ag-service-inner">
+                    <i class="bi bi-house-check"></i>
+                    <strong>Higienização Interna</strong>
+                    <span>Limpeza profunda</span>
+                    <em>A partir de R$ 190</em>
+                    <div class="ag-service-check-mark"><i class="bi bi-check"></i></div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="ag-nav">
+              <span class="text-muted" style="font-size:0.85rem">
+                <i class="bi bi-info-circle me-1"></i>Selecione ao menos 1 serviço
+              </span>
+              <div class="ag-nav-right">
+                <button class="pd-btn pd-btn-primary" onclick="goToStep(2)">
+                  Próximo <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======================== STEP 2 ======================== -->
+        <div id="step-2" class="ag-step-content">
+          <div class="ag-card">
+            <p class="ag-card-title">Data, horário e veículo</p>
+            <p class="ag-card-sub">Atendemos de segunda a sábado. Horários marcados já estão reservados.</p>
+
+            <div class="row g-4">
+              <div class="col-md-5">
+                <label class="pd-label">
+                  <i class="bi bi-calendar3 me-1"></i> Data do agendamento
+                  <input type="date" id="ag-date" class="pd-input mt-1" required>
+                </label>
+                <small class="text-muted d-block mt-2">Segunda a sábado, sem domingos.</small>
+              </div>
+              <div class="col-md-7">
+                <p class="pd-label mb-2"><i class="bi bi-clock me-1"></i> Horário disponível</p>
+                <div class="ag-time-grid" id="ag-time-grid">
+                  <label class="ag-time-label" data-time="08:00">
+                    <input type="radio" name="ag-horario" value="08:00">
+                    <div class="ag-time-btn">08:00</div>
+                  </label>
+                  <label class="ag-time-label" data-time="09:00">
+                    <input type="radio" name="ag-horario" value="09:00">
+                    <div class="ag-time-btn">09:00</div>
+                  </label>
+                  <label class="ag-time-label" data-time="10:00">
+                    <input type="radio" name="ag-horario" value="10:00">
+                    <div class="ag-time-btn">10:00</div>
+                  </label>
+                  <label class="ag-time-label" data-time="11:00">
+                    <input type="radio" name="ag-horario" value="11:00">
+                    <div class="ag-time-btn">11:00</div>
+                  </label>
+                  <label class="ag-time-label" data-time="13:00">
+                    <input type="radio" name="ag-horario" value="13:00">
+                    <div class="ag-time-btn">13:00</div>
+                  </label>
+                  <label class="ag-time-label" data-time="14:00">
+                    <input type="radio" name="ag-horario" value="14:00">
+                    <div class="ag-time-btn">14:00</div>
+                  </label>
+                  <label class="ag-time-label" data-time="15:00">
+                    <input type="radio" name="ag-horario" value="15:00">
+                    <div class="ag-time-btn">15:00</div>
+                  </label>
+                  <label class="ag-time-label" data-time="16:00">
+                    <input type="radio" name="ag-horario" value="16:00">
+                    <div class="ag-time-btn">16:00</div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-4" style="border-color:rgba(255,255,255,0.1)">
+
+            <p class="pd-label mb-3"><i class="bi bi-car-front me-1"></i> Informações do veículo</p>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="pd-label">
+                  Modelo do veículo
+                  <input type="text" id="ag-modelo" class="pd-input mt-1"
+                    placeholder="Ex: Honda Civic, Toyota Corolla...">
+                </label>
+              </div>
+              <div class="col-md-3">
+                <label class="pd-label">
+                  Cor
+                  <input type="text" id="ag-cor" class="pd-input mt-1" placeholder="Ex: Preto">
+                </label>
+              </div>
+              <div class="col-md-3">
+                <label class="pd-label">
+                  Ano
+                  <input type="text" id="ag-ano" class="pd-input mt-1"
+                    placeholder="Ex: 2022" maxlength="4">
+                </label>
+              </div>
+              <div class="col-12">
+                <label class="pd-label">
+                  Observações sobre o veículo
+                  <textarea id="ag-obs" class="pd-input mt-1" rows="3"
+                    placeholder="Descreva a condição do veículo, manchas, danos, ou qualquer detalhe relevante..."></textarea>
+                </label>
+              </div>
+            </div>
+
+            <div class="ag-nav">
+              <button class="pd-btn pd-btn-ghost" onclick="goToStep(1)">
+                <i class="bi bi-arrow-left me-1"></i> Voltar
+              </button>
+              <div class="ag-nav-right">
+                <button class="pd-btn pd-btn-primary" onclick="goToStep(3)">
+                  Próximo <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======================== STEP 3 ======================== -->
+        <div id="step-3" class="ag-step-content">
+          <div class="ag-card">
+            <p class="ag-card-title">Seus dados</p>
+            <p class="ag-card-sub">Os campos marcados com <span style="color:var(--pd-red)">*</span> são obrigatórios.</p>
+
+            <p class="ag-section-label">Dados pessoais</p>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="pd-label">
+                  Nome completo <span style="color:var(--pd-red)">*</span>
+                  <input type="text" id="ag-nome" class="pd-input mt-1"
+                    placeholder="Seu nome completo" autocomplete="name" required>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label class="pd-label">
+                  WhatsApp com DDD <span style="color:var(--pd-red)">*</span>
+                  <input type="tel" id="ag-tel" class="pd-input mt-1"
+                    placeholder="(00) 00000-0000" autocomplete="tel" required>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label class="pd-label">
+                  CPF <span class="text-muted fw-normal">(opcional)</span>
+                  <input type="text" id="ag-cpf" class="pd-input mt-1"
+                    placeholder="000.000.000-00" maxlength="14">
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label class="pd-label">
+                  E-mail <span class="text-muted fw-normal">(opcional)</span>
+                  <input type="email" id="ag-email" class="pd-input mt-1"
+                    placeholder="seu@email.com" autocomplete="email">
+                </label>
+              </div>
+            </div>
+
+            <p class="ag-section-label">Veículo</p>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="pd-label">
+                  Placa do veículo <span style="color:var(--pd-red)">*</span>
+                  <input type="text" id="ag-placa" class="pd-input mt-1"
+                    placeholder="ABC-1234 ou BRA2E19" maxlength="8" required>
+                </label>
+              </div>
+            </div>
+
+            <p class="ag-section-label">Confirmações</p>
+            <div class="d-grid gap-3">
+              <label class="ag-check-label">
+                <input type="checkbox" id="ag-wpp-ok">
+                Aceito receber confirmações e lembretes via WhatsApp sobre meu agendamento.
+              </label>
+              <label class="ag-check-label">
+                <input type="checkbox" id="ag-termos" required>
+                Li e concordo com os
+                <a href="#" onclick="return false">termos de serviço</a>
+                e autorizo o uso dos meus dados conforme a
+                <a href="#" onclick="return false">política de privacidade (LGPD)</a>. <span style="color:var(--pd-red)">*</span>
+              </label>
+            </div>
+
+            <div class="ag-nav">
+              <button class="pd-btn pd-btn-ghost" onclick="goToStep(2)">
+                <i class="bi bi-arrow-left me-1"></i> Voltar
+              </button>
+              <div class="ag-nav-right">
+                <button class="pd-btn pd-btn-primary" onclick="confirmar()">
+                  <i class="bi bi-calendar-check me-2"></i>Confirmar agendamento
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======================== STEP 4 ======================== -->
+        <div id="step-4" class="ag-step-content">
+          <div class="ag-card text-center">
+            <div class="ag-success-icon">
+              <i class="bi bi-check-lg"></i>
+            </div>
+            <h2 class="mb-1" style="font-size:1.6rem; font-weight:800">Agendamento realizado!</h2>
+            <p class="text-muted mb-4">Seu agendamento foi registrado com sucesso. Confirmaremos pelo WhatsApp em breve.</p>
+
+            <div class="ag-confirm-box text-start">
+              <div class="d-flex align-items-center gap-3 mb-3 flex-wrap">
+                <div>
+                  <p class="text-muted mb-0" style="font-size:0.75rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase">Protocolo</p>
+                  <span class="ag-protocol" id="ag-protocolo">PD-2026-000000</span>
+                </div>
+                <span class="ms-auto">
+                  <span class="badge rounded-pill" style="background:rgba(255,165,0,0.18);color:#ffa500;font-size:0.8rem;padding:6px 12px;border:1px solid rgba(255,165,0,0.4)">
+                    <i class="bi bi-hourglass-split me-1"></i>Pendente
+                  </span>
+                </span>
+              </div>
+
+              <div class="ag-summary-grid" id="ag-summary"></div>
+            </div>
+
+            <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+              <button class="pd-btn pd-btn-primary" id="ag-wpp-btn">
+                <i class="bi bi-whatsapp me-2"></i>Compartilhar via WhatsApp
+              </button>
+              <button class="pd-btn pd-btn-ghost" onclick="novoAgendamento()">
+                <i class="bi bi-plus-circle me-2"></i>Novo agendamento
+              </button>
+              <a class="pd-btn pd-btn-ghost" href="index.html">
+                <i class="bi bi-house me-2"></i>Início
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /container -->
+    </div><!-- /ag-body -->
+
+    <!-- FOOTER -->
+    <footer class="pd-footer">
+      <div class="container-xl">
+        <div class="row align-items-center py-2">
+          <div class="col-md-8 mb-2 mb-md-0">
+            <strong class="d-block mb-1">Prime Detail Studio</strong>
+            <span class="text-muted">Estética automotiva premium, proteção de pintura e acabamento técnico.</span>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <a href="#top" class="text-muted text-decoration-none">
+              Voltar ao topo <i class="bi bi-arrow-up-circle ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      const STORAGE_KEY = 'pd_agendamentos';
+      const TIME_SLOTS  = ['08:00','09:00','10:00','11:00','13:00','14:00','15:00','16:00'];
+
+      let currentStep    = 1;
+      let selectedTime   = '';
+      let confirmedData  = null;
+
+      /* ---- Navbar scroll ---- */
+      const mainNav = document.getElementById('mainNav');
+      function updateNavbar() { mainNav.classList.toggle('is-scrolled', window.scrollY > 24); }
+      window.addEventListener('scroll', updateNavbar, { passive: true });
+      updateNavbar();
+
+      /* ---- Date picker min + Sunday block ---- */
+      const dateInput = document.getElementById('ag-date');
+      (function setMinDate() {
+        const t = new Date();
+        const y = t.getFullYear(), m = String(t.getMonth()+1).padStart(2,'0'), d = String(t.getDate()).padStart(2,'0');
+        dateInput.min = y+'-'+m+'-'+d;
+      })();
+      dateInput.addEventListener('change', function () {
+        const picked = new Date(this.value + 'T00:00:00');
+        if (picked.getDay() === 0) {
+          this.setCustomValidity('Não atendemos aos domingos.');
+          this.reportValidity();
+        } else {
+          this.setCustomValidity('');
+          refreshTimeSlots(this.value);
+        }
+        selectedTime = '';
+        document.querySelectorAll('[name="ag-horario"]').forEach(r => r.checked = false);
+      });
+
+      /* ---- Time slots ---- */
+      document.querySelectorAll('[name="ag-horario"]').forEach(r => {
+        r.addEventListener('change', () => { selectedTime = r.value; });
+      });
+
+      function getBookedSlots(dateStr) {
+        const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        return list.filter(b => b.data === dateStr && b.status !== 'cancelado').map(b => b.horario);
+      }
+
+      function refreshTimeSlots(dateStr) {
+        const booked = getBookedSlots(dateStr);
+        document.querySelectorAll('.ag-time-label').forEach(lbl => {
+          const t = lbl.dataset.time;
+          const radio = lbl.querySelector('input');
+          if (booked.includes(t)) {
+            lbl.classList.add('unavailable');
+            radio.disabled = true;
+            if (selectedTime === t) { selectedTime = ''; radio.checked = false; }
+          } else {
+            lbl.classList.remove('unavailable');
+            radio.disabled = false;
+          }
+        });
+      }
+
+      /* ---- Error display ---- */
+      function showError(msg) {
+        const el = document.getElementById('ag-error');
+        el.textContent = msg;
+        el.classList.remove('d-none');
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        setTimeout(() => el.classList.add('d-none'), 5000);
+      }
+      function hideError() { document.getElementById('ag-error').classList.add('d-none'); }
+
+      /* ---- Validation per step ---- */
+      function validateStep(step) {
+        hideError();
+        if (step === 1) {
+          const sel = document.querySelectorAll('.ag-service-check:checked');
+          if (!sel.length) { showError('Selecione ao menos um serviço para continuar.'); return false; }
+        }
+        if (step === 2) {
+          if (!dateInput.value) { showError('Escolha uma data para o atendimento.'); return false; }
+          if (!selectedTime)   { showError('Escolha um dos horários disponíveis.'); return false; }
+        }
+        if (step === 3) {
+          const nome  = document.getElementById('ag-nome').value.trim();
+          const tel   = document.getElementById('ag-tel').value.trim();
+          const placa = document.getElementById('ag-placa').value.trim();
+          const termos = document.getElementById('ag-termos').checked;
+          if (!nome)  { showError('Informe seu nome completo.'); return false; }
+          if (!tel)   { showError('Informe seu WhatsApp com DDD.'); return false; }
+          if (!placa) { showError('Informe a placa do veículo.'); return false; }
+          if (!termos){ showError('Você precisa aceitar os termos para continuar.'); return false; }
+        }
+        return true;
+      }
+
+      /* ---- Step navigation ---- */
+      function goToStep(n, skipValidation) {
+        if (!skipValidation && !validateStep(currentStep)) return;
+
+        // Update step indicators
+        const old = document.getElementById('si-' + currentStep);
+        old.classList.remove('active');
+        if (n > currentStep) old.classList.add('done');
+
+        document.getElementById('step-' + currentStep).classList.remove('active');
+        currentStep = n;
+        document.getElementById('step-' + currentStep).classList.add('active');
+
+        const newInd = document.getElementById('si-' + n);
+        newInd.classList.remove('done');
+        newInd.classList.add('active');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        hideError();
+      }
+
+      /* ---- Confirm & save ---- */
+      function confirmar() {
+        if (!validateStep(3)) return;
+
+        const servicos = [...document.querySelectorAll('.ag-service-check:checked')].map(c => c.value);
+        const protocolo = 'PD-' + new Date().getFullYear() + '-' + Math.random().toString(36).slice(2,8).toUpperCase();
+
+        confirmedData = {
+          id:        protocolo,
+          criadoEm: new Date().toISOString(),
+          status:   'pendente',
+          servicos,
+          data:    dateInput.value,
+          horario: selectedTime,
+          veiculo: {
+            modelo:      document.getElementById('ag-modelo').value.trim(),
+            cor:         document.getElementById('ag-cor').value.trim(),
+            ano:         document.getElementById('ag-ano').value.trim(),
+            placa:       document.getElementById('ag-placa').value.trim().toUpperCase(),
+            observacoes: document.getElementById('ag-obs').value.trim(),
+          },
+          cliente: {
+            nome:         document.getElementById('ag-nome').value.trim(),
+            whatsapp:     document.getElementById('ag-tel').value.trim(),
+            cpf:          document.getElementById('ag-cpf').value.trim(),
+            email:        document.getElementById('ag-email').value.trim(),
+            aceitaWpp:    document.getElementById('ag-wpp-ok').checked,
+          },
+        };
+
+        const lista = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        lista.push(confirmedData);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+
+        buildSummary(confirmedData);
+        goToStep(4, true);
+      }
+
+      /* ---- Format date dd/mm/yyyy ---- */
+      function fmtDate(str) {
+        if (!str) return '—';
+        const [y,m,d] = str.split('-');
+        return d+'/'+m+'/'+y;
+      }
+
+      /* ---- Build summary card ---- */
+      function buildSummary(ag) {
+        document.getElementById('ag-protocolo').textContent = ag.id;
+
+        const items = [
+          { label: 'Serviços',   value: ag.servicos.join(', ') },
+          { label: 'Data',       value: fmtDate(ag.data) },
+          { label: 'Horário',    value: ag.horario },
+          { label: 'Nome',       value: ag.cliente.nome },
+          { label: 'WhatsApp',   value: ag.cliente.whatsapp },
+          { label: 'Veículo',    value: [ag.veiculo.modelo, ag.veiculo.cor, ag.veiculo.ano].filter(Boolean).join(', ') || '—' },
+          { label: 'Placa',      value: ag.veiculo.placa || '—' },
+          { label: 'Observações',value: ag.veiculo.observacoes || '—' },
+        ];
+
+        document.getElementById('ag-summary').innerHTML = items.map(i =>
+          '<div class="ag-summary-item"><label>' + esc(i.label) + '</label><span>' + esc(i.value) + '</span></div>'
+        ).join('');
+
+        // WhatsApp share button
+        const msg = [
+          '*Agendamento — Prime Detail Studio*',
+          '',
+          '*Protocolo:* ' + ag.id,
+          '*Serviço:* '   + ag.servicos.join(', '),
+          '*Data:* '      + fmtDate(ag.data),
+          '*Horário:* '   + ag.horario,
+          '*Nome:* '      + ag.cliente.nome,
+          '*Veículo:* '   + [ag.veiculo.modelo, ag.veiculo.cor, ag.veiculo.ano].filter(Boolean).join(' ') || '—',
+          '*Placa:* '     + (ag.veiculo.placa || '—'),
+        ].join('\n');
+
+        // Replace with the studio's actual WhatsApp number
+        const phone = '5500000000000';
+        document.getElementById('ag-wpp-btn').onclick = () => {
+          window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
+        };
+      }
+
+      /* ---- HTML escape ---- */
+      function esc(str) {
+        return String(str)
+          .replace(/&/g,'&amp;')
+          .replace(/</g,'&lt;')
+          .replace(/>/g,'&gt;')
+          .replace(/"/g,'&quot;');
+      }
+
+      /* ---- Reset for new booking ---- */
+      function novoAgendamento() {
+        // Reset step indicators
+        for (let i = 1; i <= 4; i++) {
+          const si = document.getElementById('si-' + i);
+          si.classList.remove('active','done');
+          document.getElementById('step-' + i).classList.remove('active');
+        }
+        // Reset form fields
+        document.querySelectorAll('.ag-service-check').forEach(c => c.checked = false);
+        dateInput.value = '';
+        selectedTime = '';
+        document.querySelectorAll('[name="ag-horario"]').forEach(r => { r.checked = false; r.disabled = false; });
+        document.querySelectorAll('.ag-time-label').forEach(l => l.classList.remove('unavailable'));
+        ['ag-modelo','ag-cor','ag-ano','ag-obs','ag-nome','ag-tel','ag-cpf','ag-email','ag-placa'].forEach(id => {
+          document.getElementById(id).value = '';
+        });
+        document.getElementById('ag-wpp-ok').checked  = false;
+        document.getElementById('ag-termos').checked  = false;
+        confirmedData = null;
+        currentStep = 1;
+        document.getElementById('si-1').classList.add('active');
+        document.getElementById('step-1').classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      /* ---- URL param pre-selection ---- */
+      (function checkUrlParam() {
+        const params = new URLSearchParams(window.location.search);
+        const srv    = params.get('servico');
+        if (!srv) return;
+        document.querySelectorAll('.ag-service-check').forEach(c => {
+          if (c.value === decodeURIComponent(srv)) c.checked = true;
+        });
+      })();
+    </script>
+  </body>
+</html>

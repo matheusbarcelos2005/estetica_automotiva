@@ -61,7 +61,7 @@
           <h1 id="hero-title">Acabamento de alto nível para carros que merecem mais do que uma lavagem.</h1>
           <p class="pd-hero-copy">Polimento técnico, vitrificação cerâmica, PPF e interiores tratados com método, luz de inspeção e agenda individual.</p>
           <div class="d-flex flex-wrap gap-3 mt-4 mb-4">
-            <a class="pd-btn pd-btn-primary" href="#agendar">
+            <a class="pd-btn pd-btn-primary" href="agendamento.html">
               <i class="bi bi-calendar-check me-2"></i>Agendar agora
             </a>
             <a class="pd-btn pd-btn-ghost" href="#servicos">Ver serviços</a>
@@ -188,7 +188,7 @@
                 <h3 class="pd-pkg-title">Reset</h3>
                 <p class="pd-pkg-price">a partir de R$ 290</p>
                 <p class="pd-pkg-desc">Lavagem técnica, rodas, vidros, aspiração e proteção spray para manter o carro correto entre detalhes.</p>
-                <a href="#agendar" class="pd-pkg-btn">Agendar</a>
+                <a href="agendamento.html" class="pd-pkg-btn">Agendar</a>
               </article>
             </div>
             <div class="col-md-6 col-lg-4">
@@ -198,7 +198,7 @@
                 <h3 class="pd-pkg-title">Signature Coating</h3>
                 <p class="pd-pkg-price">a partir de R$ 1.890</p>
                 <p class="pd-pkg-desc">Descontaminação, polimento de brilho, vitrificação cerâmica e orientação de cura e manutenção.</p>
-                <a href="#agendar" class="pd-pkg-btn">Quero esse</a>
+                <a href="agendamento.html" class="pd-pkg-btn">Quero esse</a>
               </article>
             </div>
             <div class="col-md-6 col-lg-4">
@@ -214,140 +214,33 @@
         </div>
       </section>
 
-      <!-- SCHEDULING -->
-      <section id="agendar" class="pd-section pd-section-dark">
+      <!-- CTA AGENDAMENTO -->
+      <section id="agendar" class="pd-section pd-section-cta">
         <div class="container-xl">
-          <div class="row justify-content-center mb-5">
-            <div class="col-lg-7 text-center">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-7">
               <p class="eyebrow">Agendamento online</p>
-              <h2 class="pd-heading">Agende sua lavagem em minutos</h2>
-              <p class="text-muted mt-3">Escolha o serviço, o dia e horário disponível. Confirmamos pelo WhatsApp em instantes.</p>
+              <h2 class="pd-heading">Agende seu serviço em minutos.</h2>
+              <p class="text-muted mt-3 mb-0 pd-cta-desc">
+                Escolha o serviço, o dia e o horário disponível. Confirmamos pelo WhatsApp em instantes. Atendemos de segunda a sábado.
+              </p>
             </div>
-          </div>
-
-          <div class="row justify-content-center">
-            <div class="col-xl-10">
-              <form id="schedulingForm" class="pd-scheduling-form">
-
-                <!-- Step 1 -->
-                <div class="pd-step mb-5">
-                  <div class="pd-step-header">
-                    <span class="pd-step-num">1</span>
-                    <h5 class="pd-step-title">Tipo de lavagem</h5>
-                  </div>
-                  <div class="row g-3">
-                    <div class="col-6 col-lg-3">
-                      <label class="pd-wash-card h-100">
-                        <input type="radio" name="tipoLavagem" value="Lavagem Simples (R$ 60+)" required>
-                        <div class="pd-wash-inner">
-                          <i class="bi bi-droplet-fill"></i>
-                          <strong>Lavagem Simples</strong>
-                          <span>Somente exterior</span>
-                          <em>A partir de R$ 60</em>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                      <label class="pd-wash-card h-100">
-                        <input type="radio" name="tipoLavagem" value="Lavagem Completa (R$ 120+)">
-                        <div class="pd-wash-inner">
-                          <i class="bi bi-droplet-half"></i>
-                          <strong>Lavagem Completa</strong>
-                          <span>Exterior + interior</span>
-                          <em>A partir de R$ 120</em>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                      <label class="pd-wash-card h-100">
-                        <input type="radio" name="tipoLavagem" value="Lavagem Premium (R$ 190+)">
-                        <div class="pd-wash-inner">
-                          <i class="bi bi-stars"></i>
-                          <strong>Lavagem Premium</strong>
-                          <span>Completa + cera protetora</span>
-                          <em>A partir de R$ 190</em>
-                        </div>
-                      </label>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                      <label class="pd-wash-card h-100">
-                        <input type="radio" name="tipoLavagem" value="Detalhamento Completo (R$ 350+)">
-                        <div class="pd-wash-inner">
-                          <i class="bi bi-gem"></i>
-                          <strong>Detalhamento</strong>
-                          <span>Polimento + proteção</span>
-                          <em>A partir de R$ 350</em>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Step 2 + 3 -->
-                <div class="pd-step mb-5">
-                  <div class="row g-4">
-                    <div class="col-md-5">
-                      <div class="pd-step-header">
-                        <span class="pd-step-num">2</span>
-                        <h5 class="pd-step-title">Dia</h5>
-                      </div>
-                      <input type="date" name="dia" id="scheduleDate" class="pd-input" required>
-                      <small class="text-muted d-block mt-2">
-                        <i class="bi bi-info-circle me-1"></i>Atendemos de segunda a sábado
-                      </small>
-                    </div>
-                    <div class="col-md-7">
-                      <div class="pd-step-header">
-                        <span class="pd-step-num">3</span>
-                        <h5 class="pd-step-title">Horário</h5>
-                      </div>
-                      <div class="pd-time-grid">
-                        <label class="pd-time-slot"><input type="radio" name="horario" value="08:00" required><span>08:00</span></label>
-                        <label class="pd-time-slot"><input type="radio" name="horario" value="09:00"><span>09:00</span></label>
-                        <label class="pd-time-slot"><input type="radio" name="horario" value="10:00"><span>10:00</span></label>
-                        <label class="pd-time-slot"><input type="radio" name="horario" value="11:00"><span>11:00</span></label>
-                        <label class="pd-time-slot"><input type="radio" name="horario" value="13:00"><span>13:00</span></label>
-                        <label class="pd-time-slot"><input type="radio" name="horario" value="14:00"><span>14:00</span></label>
-                        <label class="pd-time-slot"><input type="radio" name="horario" value="15:00"><span>15:00</span></label>
-                        <label class="pd-time-slot"><input type="radio" name="horario" value="16:00"><span>16:00</span></label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Step 4 -->
-                <div class="pd-step mb-5">
-                  <div class="pd-step-header">
-                    <span class="pd-step-num">4</span>
-                    <h5 class="pd-step-title">Suas informações</h5>
-                  </div>
-                  <div class="row g-3">
-                    <div class="col-md-6">
-                      <input type="text" name="nome" placeholder="Seu nome completo" class="pd-input" required>
-                    </div>
-                    <div class="col-md-6">
-                      <input type="tel" name="whatsapp" placeholder="WhatsApp com DDD" class="pd-input" required>
-                    </div>
-                    <div class="col-12">
-                      <input type="text" name="veiculo" placeholder="Veículo — Ex: Honda Civic 2023 Prata" class="pd-input">
-                    </div>
-                    <div class="col-12">
-                      <textarea name="observacoes" rows="3" class="pd-input"
-                        placeholder="Informações adicionais — condição do carro, preferências ou cuidados especiais..."></textarea>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-center">
-                  <button type="submit" class="pd-btn pd-btn-primary pd-btn-lg">
-                    <i class="bi bi-whatsapp me-2"></i>Confirmar agendamento via WhatsApp
-                  </button>
-                  <p class="text-muted mt-3 mb-0 pd-form-hint">
-                    Você será redirecionado para o WhatsApp com os dados do agendamento.
-                  </p>
-                </div>
-
-              </form>
+            <div class="col-lg-5 d-flex flex-column gap-3 align-items-lg-start">
+              <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-check-circle-fill pd-cta-icon"></i>
+                <span>Horários disponíveis em tempo real</span>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-check-circle-fill pd-cta-icon"></i>
+                <span>Protocolo gerado automaticamente</span>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-check-circle-fill pd-cta-icon"></i>
+                <span>Confirmação via WhatsApp</span>
+              </div>
+              <a class="pd-btn pd-btn-primary pd-btn-lg mt-2" href="agendamento.html">
+                <i class="bi bi-calendar-check me-2"></i>Fazer agendamento
+              </a>
             </div>
           </div>
         </div>

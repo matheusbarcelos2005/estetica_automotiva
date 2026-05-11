@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Painel do Studio | Prime Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --ink:    #0b0c0f;
+        --panel:  #15171c;
+        --soft:   #20242a;
+        --muted:  #aeb5bd;
+        --red:    #d52b2b;
+        --cyan:   #1ea7b6;
+        --gold:   #c79a46;
+        --green:  #2d9e5f;
+        --orange: #e07b39;
+        --line:   rgba(255,255,255,0.1);
+        --shadow: 0 12px 40px rgba(0,0,0,0.3);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; font-family: "Manrope", Arial, sans-serif; background: var(--ink); color: #fff; }
+      a { color: inherit; text-decoration: none; }
+
+      /* ====================== LOGIN ====================== */
+      #login-screen {
+        min-height: 100vh;
+        display: flex; align-items: center; justify-content: center;
+        background: radial-gradient(ellipse at 50% 0%, rgba(213,43,43,0.12) 0%, transparent 60%), var(--ink);
+        padding: 24px;
+      }
+      .login-box {
+        width: 100%; max-width: 420px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 40px 36px;
+        box-shadow: var(--shadow);
+      }
+      .login-brand {
+        display: flex; align-items: center; gap: 12px;
+        margin-bottom: 32px;
+      }
+      .login-brand-mark {
+        width: 46px; height: 46px; flex-shrink: 0;
+        display: grid; place-items: center;
+        border: 1px solid rgba(255,255,255,0.3);
+        background: rgba(255,255,255,0.08);
+        font-weight: 800; font-size: 1rem;
+      }
+      .login-brand strong { display: block; font-size: 1rem; }
+      .login-brand small  { color: var(--muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; }
+      .login-title  { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
+      .login-sub    { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+
+      .ad-input {
+        display: block; width: 100%;
+        min-height: 48px; padding: 12px 14px;
+        background: rgba(0,0,0,0.28);
+        border: 1px solid rgba(255,255,255,0.16);
+        border-radius: 4px;
+        color: #fff; font-family: "Manrope", Arial, sans-serif;
+        font-size: 0.93rem; outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .ad-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(30,167,182,0.15); }
+      .ad-input::placeholder { color: rgba(255,255,255,0.3); }
+
+      .ad-btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-height: 48px; padding: 0 24px;
+        border: 1px solid transparent; border-radius: 4px;
+        font-family: "Manrope", Arial, sans-serif;
+        font-size: 0.9rem; font-weight: 800;
+        cursor: pointer; text-decoration: none;
+        transition: transform 0.2s, background 0.2s, opacity 0.2s;
+        white-space: nowrap;
+      }
+      .ad-btn:hover { transform: translateY(-1px); }
+      .ad-btn-primary     { color: #fff; background: var(--red); }
+      .ad-btn-primary:hover { background: #b82020; }
+      .ad-btn-ghost       { color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.07); }
+      .ad-btn-sm          { min-height: 34px; padding: 0 14px; font-size: 0.8rem; }
+      .ad-btn-full        { width: 100%; }
+
+      .login-error {
+        background: rgba(213,43,43,0.15); border: 1px solid rgba(213,43,43,0.4);
+        color: #ff8a8a; padding: 11px 14px; border-radius: 4px;
+        font-size: 0.88rem; margin-bottom: 16px;
+      }
+      .pw-wrap { position: relative; }
+      .pw-toggle {
+        position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+        background: none; border: none; color: var(--muted); cursor: pointer;
+        font-size: 1rem; padding: 0;
+      }
+
+      /* ====================== DASHBOARD ====================== */
+      #dashboard { display: none; }
+
+      .ad-topbar {
+        position: sticky; top: 0; z-index: 100;
+        display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+        padding: 14px 24px;
+        background: rgba(11,12,15,0.97);
+        border-bottom: 1px solid var(--line);
+        -webkit-backdrop-filter: blur(18px);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+      }
+      .ad-topbar-brand {
+        display: flex; align-items: center; gap: 10px;
+        font-weight: 800; font-size: 0.95rem; margin-right: auto;
+      }
+      .ad-topbar-badge {
+        font-size: 0.7rem; font-weight: 800;
+        color: var(--red); text-transform: uppercase; letter-spacing: 0.12em;
+        padding: 3px 8px; border: 1px solid rgba(213,43,43,0.4);
+        background: rgba(213,43,43,0.1); border-radius: 3px;
+      }
+
+      .ad-main { max-width: 1200px; margin: 0 auto; padding: 28px 20px 80px; }
+
+      /* Metrics */
+      .ad-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; margin-bottom: 28px; }
+      .ad-metric {
+        background: var(--panel); border: 1px solid var(--line);
+        border-radius: 6px; padding: 20px 22px;
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      .ad-metric-val  { font-size: 2rem; font-weight: 800; line-height: 1; }
+      .ad-metric-label { font-size: 0.78rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+      .ad-metric-icon { font-size: 1.3rem; margin-bottom: 6px; }
+
+      /* Filters */
+      .ad-filters {
+        display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+        margin-bottom: 20px;
+      }
+      .ad-search {
+        flex: 1; min-width: 200px; max-width: 340px;
+        position: relative;
+      }
+      .ad-search i {
+        position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+        color: var(--muted); pointer-events: none;
+      }
+      .ad-search input { padding-left: 36px; }
+
+      .ad-select {
+        min-height: 44px; padding: 0 12px;
+        background: rgba(0,0,0,0.28);
+        border: 1px solid rgba(255,255,255,0.16);
+        border-radius: 4px; color: #fff;
+        font-family: "Manrope", Arial, sans-serif;
+        font-size: 0.88rem; font-weight: 600; outline: none; cursor: pointer;
+      }
+      .ad-select option { background: var(--ink); }
+
+      /* Booking cards */
+      .ad-empty {
+        text-align: center; padding: 60px 20px; color: var(--muted);
+      }
+      .ad-empty i { font-size: 3rem; display: block; margin-bottom: 12px; }
+
+      .ad-card {
+        background: var(--panel); border: 1px solid var(--line);
+        border-radius: 6px; padding: 22px 24px;
+        margin-bottom: 14px;
+        border-left: 4px solid var(--line);
+        transition: border-color 0.2s;
+      }
+      .ad-card.status-pendente   { border-left-color: var(--orange); }
+      .ad-card.status-confirmado { border-left-color: var(--green); }
+      .ad-card.status-cancelado  { border-left-color: rgba(255,255,255,0.2); opacity: 0.65; }
+
+      .ad-card-header {
+        display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+      .ad-protocol {
+        font-family: monospace; font-size: 0.85rem; font-weight: 700;
+        color: var(--muted);
+      }
+      .ad-client-name { font-size: 1.1rem; font-weight: 800; }
+      .ad-timestamp   { font-size: 0.77rem; color: var(--muted); }
+
+      .ad-badge {
+        display: inline-flex; align-items: center; gap: 5px;
+        padding: 4px 10px; border-radius: 20px;
+        font-size: 0.75rem; font-weight: 800; border: 1px solid;
+      }
+      .badge-pendente   { background: rgba(224,123,57,0.15); color: var(--orange); border-color: rgba(224,123,57,0.35); }
+      .badge-confirmado { background: rgba(45,158,95,0.15);  color: #3ecf7c;       border-color: rgba(45,158,95,0.35); }
+      .badge-cancelado  { background: rgba(255,255,255,0.08); color: var(--muted);  border-color: rgba(255,255,255,0.18); }
+
+      .ad-info-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 14px; margin-bottom: 18px;
+      }
+      .ad-info-item label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px; }
+      .ad-info-item span  { font-size: 0.88rem; font-weight: 600; word-break: break-word; }
+      .ad-info-item .tag-list { display: flex; flex-wrap: wrap; gap: 5px; }
+      .ad-tag {
+        background: rgba(30,167,182,0.12); border: 1px solid rgba(30,167,182,0.25);
+        color: var(--cyan); border-radius: 20px; padding: 2px 10px; font-size: 0.75rem; font-weight: 700;
+      }
+
+      .ad-card-actions {
+        display: flex; flex-wrap: wrap; gap: 8px;
+        padding-top: 16px; border-top: 1px solid var(--line);
+      }
+      .ad-actions-spacer { flex: 1; }
+
+      /* Section title */
+      .ad-section-title {
+        font-size: 1.1rem; font-weight: 800; margin-bottom: 16px;
+        display: flex; align-items: center; gap: 10px;
+      }
+      .ad-section-title span { color: var(--muted); font-size: 0.88rem; font-weight: 600; }
+
+      /* Confirm modal */
+      .ad-modal-overlay {
+        position: fixed; inset: 0; z-index: 999;
+        background: rgba(0,0,0,0.72); display: none;
+        align-items: center; justify-content: center; padding: 20px;
+      }
+      .ad-modal-overlay.open { display: flex; }
+      .ad-modal {
+        background: var(--panel); border: 1px solid var(--line);
+        border-radius: 8px; padding: 32px; max-width: 400px; width: 100%;
+        box-shadow: var(--shadow);
+      }
+      .ad-modal h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 10px; }
+      .ad-modal p  { color: var(--muted); margin-bottom: 24px; font-size: 0.92rem; }
+      .ad-modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+      @media (max-width: 600px) {
+        .ad-topbar { padding: 12px 16px; }
+        .ad-main   { padding: 20px 14px 60px; }
+        .login-box { padding: 28px 20px; }
+        .ad-info-grid { grid-template-columns: 1fr 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ==================== LOGIN ==================== -->
+    <div id="login-screen">
+      <div class="login-box">
+        <div class="login-brand">
+          <div class="login-brand-mark">PD</div>
+          <div>
+            <strong>Prime Detail Studio</strong>
+            <small>Painel administrativo</small>
+          </div>
+        </div>
+
+        <p class="login-title">Acesso restrito</p>
+        <p class="login-sub">Digite a senha do studio para continuar.</p>
+
+        <div id="login-error" class="login-error d-none">
+          <i class="bi bi-exclamation-triangle me-2"></i>Senha incorreta. Tente novamente.
+        </div>
+
+        <label style="font-size:0.84rem;font-weight:800;color:rgba(255,255,255,0.8);display:grid;gap:6px;margin-bottom:16px">
+          Senha
+          <div class="pw-wrap">
+            <input type="password" id="admin-pw" class="ad-input" placeholder="••••••••••"
+              autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+            <button class="pw-toggle" type="button" onclick="togglePw()" aria-label="Mostrar senha">
+              <i class="bi bi-eye" id="pw-icon"></i>
+            </button>
+          </div>
+        </label>
+
+        <button class="ad-btn ad-btn-primary ad-btn-full" onclick="doLogin()">
+          <i class="bi bi-lock-fill me-2"></i>Entrar no painel
+        </button>
+
+        <p class="text-center mt-4 mb-0" style="font-size:0.78rem;color:var(--muted)">
+          <i class="bi bi-shield-lock me-1"></i>Sessão expira após 20 minutos sem atividade.
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== DASHBOARD ==================== -->
+    <div id="dashboard">
+
+      <!-- Top bar -->
+      <div class="ad-topbar">
+        <div class="ad-topbar-brand">
+          <span>PD</span>
+          <span>Prime Detail Studio</span>
+          <span class="ad-topbar-badge">Admin</span>
+        </div>
+        <button class="ad-btn ad-btn-sm ad-btn-ghost" onclick="exportJSON()" title="Exportar JSON">
+          <i class="bi bi-download me-1"></i>Exportar
+        </button>
+        <button class="ad-btn ad-btn-sm ad-btn-ghost" onclick="renderDashboard()" title="Atualizar">
+          <i class="bi bi-arrow-clockwise me-1"></i>Atualizar
+        </button>
+        <button class="ad-btn ad-btn-sm ad-btn-ghost" onclick="doLogout()">
+          <i class="bi bi-box-arrow-right me-1"></i>Sair
+        </button>
+      </div>
+
+      <!-- Main -->
+      <div class="ad-main">
+
+        <!-- Metrics -->
+        <div class="ad-metrics">
+          <div class="ad-metric">
+            <div class="ad-metric-icon" style="color:var(--cyan)"><i class="bi bi-calendar-check"></i></div>
+            <div class="ad-metric-val" id="m-total">0</div>
+            <div class="ad-metric-label">Total</div>
+          </div>
+          <div class="ad-metric">
+            <div class="ad-metric-icon" style="color:var(--orange)"><i class="bi bi-hourglass-split"></i></div>
+            <div class="ad-metric-val" id="m-pendentes">0</div>
+            <div class="ad-metric-label">Pendentes</div>
+          </div>
+          <div class="ad-metric">
+            <div class="ad-metric-icon" style="color:var(--green)"><i class="bi bi-check-circle"></i></div>
+            <div class="ad-metric-val" id="m-confirmados">0</div>
+            <div class="ad-metric-label">Confirmados</div>
+          </div>
+          <div class="ad-metric">
+            <div class="ad-metric-icon" style="color:var(--muted)"><i class="bi bi-x-circle"></i></div>
+            <div class="ad-metric-val" id="m-cancelados">0</div>
+            <div class="ad-metric-label">Cancelados</div>
+          </div>
+          <div class="ad-metric">
+            <div class="ad-metric-icon" style="color:var(--red)"><i class="bi bi-calendar-day"></i></div>
+            <div class="ad-metric-val" id="m-hoje">0</div>
+            <div class="ad-metric-label">Hoje</div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="ad-filters">
+          <div class="ad-search">
+            <i class="bi bi-search"></i>
+            <input type="search" id="ad-search" class="ad-input" placeholder="Buscar cliente, placa, protocolo..."
+              oninput="renderDashboard()">
+          </div>
+          <select id="ad-status-filter" class="ad-select" onchange="renderDashboard()">
+            <option value="todos">Todos os status</option>
+            <option value="pendente">Pendentes</option>
+            <option value="confirmado">Confirmados</option>
+            <option value="cancelado">Cancelados</option>
+          </select>
+          <select id="ad-sort" class="ad-select" onchange="renderDashboard()">
+            <option value="recente">Mais recentes primeiro</option>
+            <option value="data">Por data do serviço</option>
+            <option value="nome">Por nome do cliente</option>
+          </select>
+          <button class="ad-btn ad-btn-sm" style="color:#ff8a8a;border-color:rgba(213,43,43,0.35);background:rgba(213,43,43,0.08)"
+            onclick="confirmClearAll()">
+            <i class="bi bi-trash3 me-1"></i>Limpar tudo
+          </button>
+        </div>
+
+        <!-- Booking list -->
+        <div class="ad-section-title">
+          Agendamentos <span id="ad-count-label"></span>
+        </div>
+        <div id="ad-list"></div>
+
+      </div>
+    </div>
+
+    <!-- Confirm modal (generic) -->
+    <div class="ad-modal-overlay" id="modal-overlay">
+      <div class="ad-modal">
+        <h3 id="modal-title">Confirmar ação</h3>
+        <p id="modal-text">Tem certeza?</p>
+        <div class="ad-modal-actions">
+          <button class="ad-btn ad-btn-sm ad-btn-ghost" onclick="closeModal()">Cancelar</button>
+          <button class="ad-btn ad-btn-sm ad-btn-primary" id="modal-confirm-btn">Confirmar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      /* ==================== CONFIG ==================== */
+      // Senha padrão: primedetail@2025
+      // Para alterar: no console do navegador, execute:
+      //   crypto.subtle.digest('SHA-256',new TextEncoder().encode('sua_senha_aqui'))
+      //     .then(b=>console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
+      const ADMIN_HASH    = 'f3f973b63fbb601297be2542fa1009bdda7466053640c216b2117f897827cd5e';
+      const SESSION_KEY   = 'pd_owner_session_until';
+      const SESSION_MS    = 20 * 60 * 1000;
+      const STORAGE_KEY   = 'pd_agendamentos';
+      const WPP_PHONE     = '5500000000000'; // Substitua pelo número real
+
+      /* ==================== AUTH ==================== */
+      async function sha256(str) {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+      }
+
+      function isLoggedIn() {
+        return Number(sessionStorage.getItem(SESSION_KEY) || 0) > Date.now();
+      }
+
+      function startSession() {
+        sessionStorage.setItem(SESSION_KEY, String(Date.now() + SESSION_MS));
+      }
+
+      function doLogout() {
+        sessionStorage.removeItem(SESSION_KEY);
+        document.getElementById('dashboard').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('admin-pw').value = '';
+        document.getElementById('login-error').classList.add('d-none');
+      }
+
+      async function doLogin() {
+        const pw = document.getElementById('admin-pw').value;
+        if (!pw) return;
+        const hash = await sha256(pw);
+        if (hash !== ADMIN_HASH) {
+          document.getElementById('login-error').classList.remove('d-none');
+          document.getElementById('admin-pw').value = '';
+          document.getElementById('admin-pw').focus();
+          return;
+        }
+        document.getElementById('login-error').classList.add('d-none');
+        startSession();
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        renderDashboard();
+      }
+
+      function togglePw() {
+        const inp = document.getElementById('admin-pw');
+        const ico = document.getElementById('pw-icon');
+        if (inp.type === 'password') {
+          inp.type = 'text'; ico.className = 'bi bi-eye-slash';
+        } else {
+          inp.type = 'password'; ico.className = 'bi bi-eye';
+        }
+      }
+
+      // Auto-logout every 30 s
+      setInterval(() => { if (document.getElementById('dashboard').style.display !== 'none' && !isLoggedIn()) doLogout(); }, 30000);
+
+      // Reset session timer on activity
+      ['mousemove','keydown','click','scroll'].forEach(ev =>
+        document.addEventListener(ev, () => { if (isLoggedIn()) startSession(); }, { passive: true })
+      );
+
+      /* ==================== DATA ==================== */
+      function getAll()  { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+      function saveAll(list) { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+
+      function updateStatus(id, status) {
+        const list = getAll();
+        const idx  = list.findIndex(b => b.id === id);
+        if (idx < 0) return;
+        list[idx].status = status;
+        saveAll(list);
+        renderDashboard();
+      }
+
+      function deleteBooking(id) {
+        saveAll(getAll().filter(b => b.id !== id));
+        renderDashboard();
+      }
+
+      /* ==================== RENDER ==================== */
+      function fmtDate(str) {
+        if (!str) return '—';
+        const [y,m,d] = str.split('-'); return d+'/'+m+'/'+y;
+      }
+
+      function fmtTs(iso) {
+        if (!iso) return '—';
+        const dt = new Date(iso);
+        return dt.toLocaleDateString('pt-BR') + ' às ' + dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+      }
+
+      function esc(s) {
+        return String(s||'')
+          .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+          .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
+      function todayStr() {
+        const t = new Date();
+        return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+      }
+
+      function badgeHTML(status) {
+        const map = {
+          pendente:   ['badge-pendente',   'bi-hourglass-split', 'Pendente'],
+          confirmado: ['badge-confirmado', 'bi-check-circle',    'Confirmado'],
+          cancelado:  ['badge-cancelado',  'bi-x-circle',        'Cancelado'],
+        };
+        const [cls, ico, lbl] = map[status] || map.pendente;
+        return '<span class="ad-badge ' + cls + '"><i class="bi ' + ico + '"></i>' + lbl + '</span>';
+      }
+
+      function cardHTML(b) {
+        const placa  = esc(b.veiculo?.placa || '—');
+        const modelo = esc([b.veiculo?.modelo, b.veiculo?.cor, b.veiculo?.ano].filter(Boolean).join(' ') || '—');
+        const obs    = esc(b.veiculo?.observacoes || '—');
+        const tel    = esc(b.cliente?.whatsapp || '');
+        const telLink = tel.replace(/\D/g,'');
+        const email  = esc(b.cliente?.email || '—');
+        const cpf    = esc(b.cliente?.cpf || '—');
+
+        const wppMsg = encodeURIComponent(
+          '*Prime Detail Studio*\n\nOlá ' + (b.cliente?.nome||'') + ', seu agendamento ' + b.id + ' foi confirmado!\n' +
+          'Data: ' + fmtDate(b.data) + ' às ' + (b.horario||'') + '\nServiço: ' + (b.servicos||[]).join(', ')
+        );
+
+        return '<div class="ad-card status-' + esc(b.status||'pendente') + '" id="card-' + esc(b.id) + '">' +
+          '<div class="ad-card-header">' +
+            '<div style="flex:1">' +
+              '<div class="d-flex align-items-center gap-2 flex-wrap mb-1">' +
+                '<span class="ad-client-name">' + esc(b.cliente?.nome||'Cliente') + '</span>' +
+                badgeHTML(b.status||'pendente') +
+              '</div>' +
+              '<span class="ad-protocol">' + esc(b.id) + '</span>' +
+              '<span class="ad-timestamp ms-3">Criado em ' + fmtTs(b.criadoEm) + '</span>' +
+            '</div>' +
+          '</div>' +
+
+          '<div class="ad-info-grid">' +
+            '<div class="ad-info-item"><label>Serviços</label>' +
+              '<div class="tag-list">' + (b.servicos||[]).map(s => '<span class="ad-tag">' + esc(s) + '</span>').join('') + '</div>' +
+            '</div>' +
+            '<div class="ad-info-item"><label>Data do serviço</label><span>' + fmtDate(b.data) + '</span></div>' +
+            '<div class="ad-info-item"><label>Horário</label><span>' + esc(b.horario||'—') + '</span></div>' +
+            '<div class="ad-info-item"><label>Veículo</label><span>' + modelo + '</span></div>' +
+            '<div class="ad-info-item"><label>Placa</label><span>' + placa + '</span></div>' +
+            '<div class="ad-info-item"><label>WhatsApp</label><span>' +
+              (telLink.length >= 10 ?
+                '<a href="tel:+55' + telLink + '" style="color:var(--cyan)">' + tel + '</a>' :
+                tel || '—') +
+            '</span></div>' +
+            (email !== '—' ? '<div class="ad-info-item"><label>E-mail</label><span><a href="mailto:' + email + '" style="color:var(--cyan)">' + email + '</a></span></div>' : '') +
+            (cpf   !== '—' ? '<div class="ad-info-item"><label>CPF</label><span>' + cpf + '</span></div>' : '') +
+            (obs   !== '—' ? '<div class="ad-info-item" style="grid-column:1/-1"><label>Observações</label><span>' + obs + '</span></div>' : '') +
+          '</div>' +
+
+          '<div class="ad-card-actions">' +
+            (b.status !== 'confirmado' ?
+              '<button class="ad-btn ad-btn-sm" style="color:#3ecf7c;border-color:rgba(45,158,95,0.4);background:rgba(45,158,95,0.1)" data-action="confirmar" data-id="' + esc(b.id) + '">' +
+                '<i class="bi bi-check-circle me-1"></i>Confirmar</button>' : '') +
+            (b.status !== 'pendente' ?
+              '<button class="ad-btn ad-btn-sm ad-btn-ghost" data-action="pendente" data-id="' + esc(b.id) + '">' +
+                '<i class="bi bi-hourglass me-1"></i>Pendente</button>' : '') +
+            (b.status !== 'cancelado' ?
+              '<button class="ad-btn ad-btn-sm" style="color:#ff8a8a;border-color:rgba(213,43,43,0.35);background:rgba(213,43,43,0.08)" data-action="cancelar" data-id="' + esc(b.id) + '">' +
+                '<i class="bi bi-x-circle me-1"></i>Cancelar</button>' : '') +
+            (telLink.length >= 10 ?
+              '<a href="https://wa.me/55' + telLink + '?text=' + wppMsg + '" target="_blank" rel="noopener noreferrer" class="ad-btn ad-btn-sm" style="color:#25d366;border-color:rgba(37,211,102,0.35);background:rgba(37,211,102,0.08)">' +
+                '<i class="bi bi-whatsapp me-1"></i>WhatsApp</a>' : '') +
+            '<div class="ad-actions-spacer"></div>' +
+            '<button class="ad-btn ad-btn-sm" style="color:var(--muted);border-color:rgba(255,255,255,0.18);background:rgba(255,255,255,0.05)" data-action="excluir" data-id="' + esc(b.id) + '">' +
+              '<i class="bi bi-trash3 me-1"></i>Excluir</button>' +
+          '</div>' +
+        '</div>';
+      }
+
+      function renderMetrics(list) {
+        const today = todayStr();
+        document.getElementById('m-total').textContent      = list.length;
+        document.getElementById('m-pendentes').textContent  = list.filter(b => b.status === 'pendente').length;
+        document.getElementById('m-confirmados').textContent= list.filter(b => b.status === 'confirmado').length;
+        document.getElementById('m-cancelados').textContent = list.filter(b => b.status === 'cancelado').length;
+        document.getElementById('m-hoje').textContent       = list.filter(b => b.data === today).length;
+      }
+
+      function renderDashboard() {
+        if (!isLoggedIn()) { doLogout(); return; }
+
+        let list    = getAll();
+        renderMetrics(list);
+
+        const query  = (document.getElementById('ad-search')?.value || '').trim().toLowerCase();
+        const status = document.getElementById('ad-status-filter')?.value || 'todos';
+        const sort   = document.getElementById('ad-sort')?.value || 'recente';
+
+        if (status !== 'todos') list = list.filter(b => b.status === status);
+        if (query) {
+          list = list.filter(b =>
+            [b.id, b.cliente?.nome, b.cliente?.whatsapp, b.cliente?.email, b.cliente?.cpf,
+             b.veiculo?.placa, b.veiculo?.modelo, ...(b.servicos||[])]
+            .join(' ').toLowerCase().includes(query)
+          );
+        }
+
+        if (sort === 'recente')  list = list.sort((a,b) => (b.criadoEm||'').localeCompare(a.criadoEm||''));
+        if (sort === 'data')     list = list.sort((a,b) => (a.data+a.horario||'').localeCompare(b.data+b.horario||''));
+        if (sort === 'nome')     list = list.sort((a,b) => (a.cliente?.nome||'').localeCompare(b.cliente?.nome||''));
+
+        const container = document.getElementById('ad-list');
+        document.getElementById('ad-count-label').textContent = '(' + list.length + ' registro' + (list.length !== 1 ? 's' : '') + ')';
+
+        if (!list.length) {
+          container.innerHTML = '<div class="ad-empty"><i class="bi bi-calendar-x"></i><p>Nenhum agendamento encontrado.</p></div>';
+          return;
+        }
+
+        container.innerHTML = list.map(cardHTML).join('');
+
+        // Wire up action buttons
+        container.querySelectorAll('[data-action]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const action = btn.dataset.action;
+            const id     = btn.dataset.id;
+            if (action === 'confirmar') updateStatus(id, 'confirmado');
+            else if (action === 'pendente') updateStatus(id, 'pendente');
+            else if (action === 'cancelar') updateStatus(id, 'cancelado');
+            else if (action === 'excluir')  confirmDelete(id);
+          });
+        });
+      }
+
+      /* ==================== MODAL ==================== */
+      let modalCallback = null;
+
+      function openModal(title, text, cb) {
+        document.getElementById('modal-title').textContent = title;
+        document.getElementById('modal-text').textContent  = text;
+        modalCallback = cb;
+        document.getElementById('modal-overlay').classList.add('open');
+        document.getElementById('modal-confirm-btn').focus();
+      }
+
+      function closeModal() {
+        document.getElementById('modal-overlay').classList.remove('open');
+        modalCallback = null;
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('modal-confirm-btn').addEventListener('click', () => {
+          if (modalCallback) modalCallback();
+          closeModal();
+        });
+        document.getElementById('modal-overlay').addEventListener('click', e => {
+          if (e.target === e.currentTarget) closeModal();
+        });
+      });
+
+      function confirmDelete(id) {
+        openModal('Excluir agendamento', 'Esta ação não pode ser desfeita. Excluir o agendamento ' + id + '?',
+          () => deleteBooking(id));
+      }
+
+      function confirmClearAll() {
+        openModal('Limpar todos os agendamentos', 'Todos os registros serão removidos permanentemente. Tem certeza?',
+          () => { saveAll([]); renderDashboard(); });
+      }
+
+      /* ==================== EXPORT ==================== */
+      function exportJSON() {
+        const data  = JSON.stringify(getAll(), null, 2);
+        const blob  = new Blob([data], { type: 'application/json' });
+        const url   = URL.createObjectURL(blob);
+        const a     = Object.assign(document.createElement('a'), {
+          href:     url,
+          download: 'primedetail-agendamentos-' + todayStr() + '.json',
+        });
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      /* ==================== INIT ==================== */
+      if (isLoggedIn()) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        renderDashboard();
+      }
+    </script>
+  </body>
+</html>
