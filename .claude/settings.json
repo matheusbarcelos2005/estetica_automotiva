@@ -7,7 +7,8 @@
       "Bash(find \"a:/_SITES/SITES PRONTOS/mecanica\" -type f | sort)",
       "Read(//a/_SITES/SITES PRONTOS/mecanica/**)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
